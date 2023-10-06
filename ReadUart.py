@@ -2,14 +2,20 @@ import serial
 import time
 import ConvertFloat
 
+line = list()
+count = 0
+
 if __name__ == "__main__":
     #Take 4 bytes of data from response data and convert to Binary
-    while (True):
-        ser = serial.Serial('COM4', 115200)
+    ser = serial.Serial(port = 'COM3', \
+                        baudrate = 115200,\
+                        parity = serial.PARITY_NONE,\
+                        stopbits = serial.STOPBITS_ONE,\
+                        bytesize = serial.EIGHTBITS,\
+                        timeout = 0)
+    while (True):   
+        line = ser.readline()
 
-        line = ser.readline().decode('utf-8').rstrip()
-
-        ser.close()
 
         IDtemp = line.rstrip('[0123456789, ]')
         Return_data = line.strip(IDtemp + "[]")
@@ -21,3 +27,6 @@ if __name__ == "__main__":
         print(Return_data_str, type(Return_data_str))
 
         time.sleep(1000)
+
+        
+    ser.close()
