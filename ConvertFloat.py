@@ -9,11 +9,15 @@ def convertToInt(mantissa_str):
     return (mantissa_int + 1)
 
 def ConvertByteToFloat(Return_data):
+    # Convert string to list for Return_data
+    values = Return_data.split(",")
+    values = [value.strip() for value in values]
     # Convert value at index 5 to integer
-    A = int(Return_data[5])
-    B = int(Return_data[6])
-    C = int(Return_data[3])
-    D = int(Return_data[4])
+    A = int(values[0])
+    B = int(values[1])
+    C = int(values[2])
+    D = int(values[3])
+
 
     # Combine into a 32-bit result using bitwise operations
     result_32_form = (A << 24) | (B << 16) | (C << 8) | D
