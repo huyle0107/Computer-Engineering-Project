@@ -1,32 +1,36 @@
 import serial
 import time
-import ConvertFloat
+import json
+from ConvertFloat import *
 
 line = list()
 count = 0
 
 if __name__ == "__main__":
     #Take 4 bytes of data from response data and convert to Binary
-    ser = serial.Serial(port = 'COM3', \
-                        baudrate = 115200,\
-                        parity = serial.PARITY_NONE,\
-                        stopbits = serial.STOPBITS_ONE,\
-                        bytesize = serial.EIGHTBITS,\
-                        timeout = 0)
+    ser = serial.Serial(port = 'COM4', baudrate = 115200)
     while (True):   
-        line = ser.readline()
+        line = ser.readline().decode('utf-8')
 
+        print(line)
 
-        IDtemp = line.rstrip('[0123456789, ]')
-        Return_data = line.strip(IDtemp + "[]")
-        float_value = ConvertFloat.ConvertByteToFloat(Return_data)
+        start_index = line.find("[")
+        end_index = line.find("]")
+        if start_index != -1 and end_index != -1:
+            tempStr = line[:start_index]  # Extract A
+            IDtemp = line[start_index:end_index + 1]  
 
-        Return_data_str = ""
-        for i in Return_data:
-            Return_data_str += str(int(i)) + "|"
-        print(Return_data_str, type(Return_data_str))
+        Return_data = json.loads(IDtemp)
 
-        time.sleep(1000)
+        float_value = ConvertByteToFloat(Return_data)
+        
+        print(f"{tempStr}: {float_value}")
+
+        # Return_data_str = ""
+        # for i in Return_data:
+        #     Return_data_str += str(int(i)) + "|"
+        # print(Return_data_str, type(Return_data_str))
+
 
         
     ser.close()

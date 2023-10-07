@@ -9,14 +9,12 @@ def convertToInt(mantissa_str):
     return (mantissa_int + 1)
 
 def ConvertByteToFloat(Return_data):
-    # Convert string to list for Return_data
-    values = Return_data.split(",")
-    values = [value.strip() for value in values]
+    
     # Convert value at index 5 to integer
-    A = int(values[0])
-    B = int(values[1])
-    C = int(values[2])
-    D = int(values[3])
+    A = int(Return_data[2])
+    B = int(Return_data[3])
+    C = int(Return_data[0])
+    D = int(Return_data[1])
 
 
     # Combine into a 32-bit result using bitwise operations
@@ -29,17 +27,9 @@ def ConvertByteToFloat(Return_data):
     mantissa_int = convertToInt(mantissa_str)
 
     float_value = pow(-1, sign_bit) * mantissa_int * pow(2, exponent - 127)
-    return float_value
+    return round(float_value,2)
 
-#Take 4 bytes of data from response data and convert to Binary
-Return_data = bytearray([5, 3, 4, 95, 192, 65, 154, 159, 187])
-float_value = ConvertByteToFloat(Return_data)
-print(float_value)
 
-Return_data_str = ""
-for i in Return_data:
-    Return_data_str += str(int(i)) + "|"
-print(Return_data_str, type(Return_data_str))
 
 
 
