@@ -25,12 +25,5 @@ if __name__ == "__main__":
         float_value = ConvertByteToFloat(Return_data)
         
         print(f"{tempStr}: {float_value}")
-
-        # Return_data_str = ""
-        # for i in Return_data:
-        #     Return_data_str += str(int(i)) + "|"
-        # print(Return_data_str, type(Return_data_str))
-
-
         
     ser.close()
