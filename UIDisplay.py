@@ -67,7 +67,7 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
         QProgressBar, QPushButton, QRadioButton, QScrollBar, QSizePolicy,
         QSlider, QSpinBox, QStyleFactory, QTableWidget, QTabWidget, QTextEdit,
-        QVBoxLayout, QWidget, QFileDialog)
+        QVBoxLayout, QWidget, QFileDialog, QMainWindow, QDesktopWidget)
 
 # app = QApplication(sys.argv)
 # window = QWidget()
@@ -264,9 +264,12 @@ class WidgetGallery(QDialog):
 
 if __name__ == '__main__':
 
-    import sys
-
     app = QApplication(sys.argv)
-    gallery = WidgetGallery()
-    gallery.show()
+    main_win = QMainWindow()
+    main_win.setCentralWidget(WidgetGallery())
+
+    desktop = QDesktopWidget()
+    available_geometry = desktop.availableGeometry()
+    main_win.setGeometry(available_geometry)
+    main_win.show()
     sys.exit(app.exec_())
