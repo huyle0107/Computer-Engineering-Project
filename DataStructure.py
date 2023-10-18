@@ -4,15 +4,30 @@ def print_node_details(node):
         print(f"Node ID: {current_node.ID}")
         current_sensor = current_node.sensor
         while current_sensor:
-            print(f"  Sensor ID: {current_sensor.ID}, Sensor Data: {current_sensor.sensor_data}")
+            print(f"  Sensor ID: {current_sensor.ID}, Sensor Data: {current_sensor.buffer}")
             current_sensor = current_sensor.next
         current_node = current_node.node  # Move to the next node
 
 class NodeSensor:
     def __init__(self, sensorID, data):
         self.ID = sensorID
-        self.sensor_data = data
+        self.receive_data = data
+        self.size = 0
+        self.buffer = [0] * 10
         self.next = None
+        self.setup_buffer()  # Call another function to set up the buffer
+
+    def setup_buffer(self):
+        if self.size < 10:
+            self.buffer[self.size] = self.receive_data
+            self.size += 1
+        else:
+            for i in range(9):
+                self.buffer[i] = self.buffer[i + 1]
+            self.buffer[9] = self.receive_data
+            # Not check varriance 
+        
+        
 
 class Node:
     def __init__(self):
@@ -23,8 +38,7 @@ class Node:
     def updateNode(self, nodeID, sensorID, data):
         global root_node  # Make sure root_node is used from outside the function
 
-        if not root_node:
-            root_node = Node()
+        if not root_node.ID:
             root_node.ID = nodeID
             root_node.sensor = NodeSensor(sensorID, data)
             return
@@ -46,7 +60,8 @@ class Node:
             while current_sensor:
                 if current_sensor.ID == sensorID:
                     # Sensor with the same ID found, update its data
-                    current_sensor.sensor_data = data
+                    current_sensor.receive_data = data
+                    current_sensor.setup_buffer()
                     return
 
                 if not current_sensor.next:
@@ -59,18 +74,13 @@ class Node:
         
 
 # Example usage
-root_node = None
+root_node = Node()
 
 while(1):
     nodeID = int(input("Nhập Node ID: "))
     sensorID = int(input("Nhập Sensor ID: "))
     data = int(input("Nhập Sensor Data: "))
-    if not root_node:
-        root_node = Node()
-        root_node.ID = nodeID
-        root_node.sensor = NodeSensor(sensorID, data)
-    else:
-        root_node.updateNode(nodeID,sensorID,data)
+    root_node.updateNode(nodeID,sensorID,data)
     print_node_details(root_node)
 
 
