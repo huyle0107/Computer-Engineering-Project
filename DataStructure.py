@@ -4,14 +4,14 @@ def print_node_details(node):
         print(f"Node ID: {current_node.ID}")
         current_sensor = current_node.sensor
         while current_sensor:
-            print(f"  Sensor ID: {current_sensor.ID}, Sensor Data: {current_sensor.receive_data}, Sensor buffer: {current_sensor.buffer}")
+            print(f"  Sensor ID: {current_sensor.ID}, Sensor Data: {current_sensor.current_data}, Sensor buffer: {current_sensor.buffer}")
             current_sensor = current_sensor.next
         current_node = current_node.node  # Move to the next node
 
 class NodeSensor:
     def __init__(self, sensorID, data):
         self.ID = sensorID
-        self.receive_data = data 
+        self.current_data = data 
         self.size = 0
         self.buffer = [0] * 10
         self.next = None
@@ -27,8 +27,8 @@ class NodeSensor:
             variance = sum((x - mean) ** 2 for x in self.buffer) / self.size
             self.size = 0
             if variance < 5:
-                self.receive_data = mean
-        return self.receive_data
+                self.current_data = mean
+        return self.current_data
 
 
 class Node:
