@@ -72,16 +72,3 @@ class Node:
             current_sensor.next = NodeSensor(sensorID, data)
             return data
 
-        
-
-# Example usage
-root_node = Node()
-
-while(1):
-    nodeID = int(input("Nhập Node ID: "))
-    sensorID = int(input("Nhập Sensor ID: "))
-    data = int(input("Nhập Sensor Data: "))
-    print(root_node.updateNode(nodeID,sensorID,data))
-    print_node_details(root_node)
-
-
