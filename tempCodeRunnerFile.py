@@ -1,1 +1,1 @@
-radioButton[0].setChecked(True)
+#000C66
