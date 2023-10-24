@@ -173,7 +173,7 @@ if __name__ == '__main__':
     main_win.setCentralWidget(WidgetGallery())
 
     desktop = QDesktopWidget()
-    available_geometry = desktop.availableGeometry()
+    available_geometry = desktop.availableGeometry() 
     
     main_win.setGeometry(available_geometry)
     main_win.show()
