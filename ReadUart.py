@@ -22,6 +22,4 @@ if __name__ == "__main__":
         root_node.updateNode(NodeID,SensorID,value)
         print_node_details(root_node)
         
-
-        
     ser.close()
