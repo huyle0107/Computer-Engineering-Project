@@ -1,27 +1,101 @@
 import sys
 import os
+import serial
+import tkinter as tk
 
-from ListNodeBox import *
-from ListSensorBox import *
-from TopThirdGroupBox import *
-from TableData import *
+from ReadUart import AnalyzeData
 
-from PyQt5.QtGui import QCursor, QPixmap, QIcon, QFont
-from PyQt5.QtCore import QDateTime, Qt, QTimer
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
-        QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
-        QProgressBar, QPushButton, QRadioButton, QScrollBar, QSizePolicy,
-        QSlider, QSpinBox, QStyleFactory, QTableWidget, QTabWidget, QTextEdit,
-        QVBoxLayout, QWidget, QFileDialog, QMainWindow, QDesktopWidget)
-
-n = 3
+ser = serial.Serial(port = 'COM4', baudrate = 115200)
 
 title_watermonitoring = ["Temperature", "Salinity", "EC", "ORP"]
 title_soilmonitoring = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
 title_airmonitoring = ["Temperature", "Humidity", "Lux", "CO2"]
 title = [title_watermonitoring, title_soilmonitoring, title_airmonitoring]
 
+data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
+n = 5
 
+class UpdateLabel(tk.Label):
+    def __init__(self, *args, **kwargs):
+        tk.Label.__init__(self, *args, **kwargs)
+        self.update_text()
+
+    def update_text(self):
+        line = ser.readline().decode('utf-8')
+        print(line)
+        AnalyzeData(line, data)
+        print(data['NodeID'], data['SensorID'], data['value'])
+
+        self.config(text = f"{data['NodeID']}, {data['SensorID']}, {data['value']}")
+        self.after(1000, self.update_text)
+
+
+root = tk.Tk()
+root.attributes('-fullscreen', True)  # Set the window to fullscreen
+root.configure(bg='#000C66')
+
+# Create three frames, each occupying a column
+frame1 = tk.Frame(root, bg='lightblue')
+frame2 = tk.Frame(root, bg='lightgreen')
+frame3 = tk.Frame(root, bg='lightyellow')
+
+# Configure grid to create three equal columns
+root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(1, weight=1)
+root.grid_columnconfigure(2, weight=1)
+
+
+# Place frames in grid
+frame1.grid(row=0, column=0, sticky='nsew')
+frame2.grid(row=0, column=1, sticky='nsew')
+frame3.grid(row=0, column=2, sticky='nsew')
+
+# Set the height of rows
+root.grid_rowconfigure(0, minsize=150)  
+root.grid_rowconfigure(1, minsize=150)  
+root.grid_rowconfigure(2, minsize=150)  
+
+print(root.winfo_screenwidth())
+print(root.winfo_screenheight())
+
+# Create labels for each frame
+label1 = UpdateLabel(frame1, text='Label 1', fg='black', font=('Arial', 16))
+label2 = tk.Label(frame2, text='Label 2', fg='black', font=('Arial', 16))
+label3 = tk.Label(frame3, text='Label 3', fg='black', font=('Arial', 16))
+
+# Pack the labels inside the frames
+label1.pack(expand=True)
+label2.pack(expand=True)
+label3.pack(expand=True)
+
+root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""from ListNodeBox import *
+from ListSensorBox import *
+from TopThirdGroupBox import *
+from TableData import *
+from ReadUart import AnalyzeData
+
+from PyQt5.QtGui import QCursor, QPixmap, QIcon, QFont
+from PyQt5.QtCore import QTimer, pyqtSignal, QThread
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
+        QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
+        QProgressBar, QPushButton, QRadioButton, QScrollBar, QSizePolicy,
+        QSlider, QSpinBox, QStyleFactory, QTableWidget, QTabWidget, QTextEdit,
+        QVBoxLayout, QWidget, QFileDialog, QMainWindow, QDesktopWidget)
 class WidgetGallery(QDialog):
     def __init__(self, parent=None):
         super(WidgetGallery, self).__init__(parent)
@@ -38,12 +112,13 @@ class WidgetGallery(QDialog):
         # self.useStylePaletteCheckBox.setChecked(True)
 
         # disableWidgetsCheckBox = QCheckBox("&Disable widgets")
-
-        createTopFirstGroupBox(self, n)
+        self.worker = WorkerThread()
+        self.worker.start()
+        createTopFirstGroupBox(self, data)
         createTopSecondGroupBox(self, n)
         createTopThirdGroupBox(self, n)
         createBottomLeftTabWidget(self, title)
-        self.createBottomRightGroupBox()
+        self.worker.update_process.connect(self.createBottomRightGroupBox())
         self.createProgressBar()
 
         # styleComboBox.activated[str].connect(self.changeStyle)
@@ -52,7 +127,6 @@ class WidgetGallery(QDialog):
         # disableWidgetsCheckBox.toggled.connect(self.topSecondGroupBox.setDisabled)
         # disableWidgetsCheckBox.toggled.connect(self.bottomLeftTabWidget.setDisabled)
         # disableWidgetsCheckBox.toggled.connect(self.bottomRightGroupBox.setDisabled)
-
 
         # topLayout = QHBoxLayout()
         # topLayout.addWidget(styleLabel)
@@ -77,6 +151,8 @@ class WidgetGallery(QDialog):
         mainLayout.setColumnStretch(1, 1)
         self.setLayout(mainLayout)
 
+
+
         # self.setWindowTitle("Styles")
         # self.changeStyle('Windows')
 
@@ -88,14 +164,14 @@ class WidgetGallery(QDialog):
     #     if (self.useStylePaletteCheckBox.isChecked()):
     #         QApplication.setPalette(QApplication.style().standardPalette())
     #     else:
-    #         QApplication.setPalette(self.originalPalette)
+    #         QApplication.setPalette(self.originalPalette
 
     def advanceProgressBar(self):
         curVal = self.progressBar.value()
         maxVal = self.progressBar.maximum()
         self.progressBar.setValue(curVal + (maxVal - curVal) // 100)
 
-    def createBottomRightGroupBox(self):
+    def createBottomRightGroupBox(self, data):
         self.bottomRightGroupBox = QGroupBox()
         # self.bottomRightGroupBox.setCheckable(True)
         # self.bottomRightGroupBox.setChecked(True)
@@ -140,9 +216,18 @@ class WidgetGallery(QDialog):
         timer.timeout.connect(self.advanceProgressBar)
         timer.start(1000)
 
+class WorkerThread(QThread):
+    update_process = pyqtSignal(dict)
+    def run(self):
+        while True:
+            line = ser.readline().decode('utf-8')
+            print(line)
+            if len(line) > 0:
+                AnalyzeData(line, data)
+                self.update_process.emit({"NodeID":data['NodeID'], "SensorID":data['SensorID'], "value":data['value']})
+            print(data['NodeID'], data['SensorID'], data['value'])
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     main_win = QMainWindow()
@@ -155,5 +240,6 @@ if __name__ == '__main__':
     available_geometry = desktop.availableGeometry() 
     
     main_win.setGeometry(available_geometry)
-    main_win.showFullScreen() 
-    sys.exit(app.exec_())
+    main_win.show() 
+
+    sys.exit(app.exec_()) """
