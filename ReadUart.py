@@ -10,7 +10,7 @@ root_node = Node()
 
 if __name__ == "__main__":
     #Take 4 bytes of data from response data and convert to Binary
-    ser = serial.Serial(port = 'COM4', baudrate = 115200)
+    ser = serial.Serial(port = 'COM11', baudrate = 115200)
     while (True):   
         line = ser.readline().decode('utf-8')
         print(line)
