@@ -1,10 +1,10 @@
 import sys
 import os
 
-
-from TopFirstGroupBox import *
-from TopSecondGroupBox import *
+from ListNodeBox import *
+from ListSensorBox import *
 from TopThirdGroupBox import *
+from TableData import *
 
 from PyQt5.QtGui import QCursor, QPixmap, QIcon, QFont
 from PyQt5.QtCore import QDateTime, Qt, QTimer
@@ -15,6 +15,12 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QVBoxLayout, QWidget, QFileDialog, QMainWindow, QDesktopWidget)
 
 n = 3
+
+title_watermonitoring = ["Temperature", "Salinity", "EC", "ORP"]
+title_soilmonitoring = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
+title_airmonitoring = ["Temperature", "Humidity", "Lux", "CO2"]
+title = [title_watermonitoring, title_soilmonitoring, title_airmonitoring]
+
 
 class WidgetGallery(QDialog):
     def __init__(self, parent=None):
@@ -36,7 +42,7 @@ class WidgetGallery(QDialog):
         createTopFirstGroupBox(self, n)
         createTopSecondGroupBox(self, n)
         createTopThirdGroupBox(self, n)
-        self.createBottomLeftTabWidget()
+        createBottomLeftTabWidget(self, title)
         self.createBottomRightGroupBox()
         self.createProgressBar()
 
@@ -88,33 +94,6 @@ class WidgetGallery(QDialog):
         curVal = self.progressBar.value()
         maxVal = self.progressBar.maximum()
         self.progressBar.setValue(curVal + (maxVal - curVal) // 100)
-
-    def createBottomLeftTabWidget(self):
-        self.bottomLeftTabWidget = QTabWidget()
-        self.bottomLeftTabWidget.setSizePolicy(QSizePolicy.Preferred,
-                QSizePolicy.Ignored)
-
-        tab1 = QWidget()
-        tableWidget = QTableWidget(10, 10)
-
-        tab1hbox = QHBoxLayout()
-        tab1hbox.setContentsMargins(5, 5, 5, 5)
-        tab1hbox.addWidget(tableWidget)
-        tab1.setLayout(tab1hbox)
-
-        tab2 = QWidget()
-        textEdit = QTextEdit()
-
-        textEdit.setPlainText("Hello\n")
-
-        tab2hbox = QHBoxLayout()
-        tab2hbox.setContentsMargins(5, 5, 5, 5)
-        tab2hbox.addWidget(textEdit)
-        tab2.setLayout(tab2hbox)
-
-        self.bottomLeftTabWidget.addTab(tab1, "&Table")
-        self.bottomLeftTabWidget.addTab(tab2, "Text &Edit")
-        self.bottomLeftTabWidget.setStyleSheet("background-color: white;")
 
     def createBottomRightGroupBox(self):
         self.bottomRightGroupBox = QGroupBox()
@@ -176,5 +155,5 @@ if __name__ == '__main__':
     available_geometry = desktop.availableGeometry() 
     
     main_win.setGeometry(available_geometry)
-    main_win.show()
+    main_win.showFullScreen() 
     sys.exit(app.exec_())
