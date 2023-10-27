@@ -12,6 +12,7 @@ title_soilmonitoring = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
 title_airmonitoring = ["Temperature", "Humidity", "Lux", "CO2"]
 title = [title_watermonitoring, title_soilmonitoring, title_airmonitoring]
 
+# Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
 n = 5
 
@@ -35,7 +36,7 @@ root.attributes('-fullscreen', True)  # Set the window to fullscreen
 root.configure(bg='#000C66')
 
 # Create three frames, each occupying a column
-frame1 = tk.Frame(root, bg='lightblue')
+frame1 = tk.LabelFrame(root, bg='lightblue')
 frame2 = tk.Frame(root, bg='lightgreen')
 frame3 = tk.Frame(root, bg='lightyellow')
 
@@ -44,24 +45,18 @@ root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure(2, weight=1)
 
-
 # Place frames in grid
-frame1.grid(row=0, column=0, sticky='nsew')
-frame2.grid(row=0, column=1, sticky='nsew')
-frame3.grid(row=0, column=2, sticky='nsew')
-
-# Set the height of rows
-root.grid_rowconfigure(0, minsize=150)  
-root.grid_rowconfigure(1, minsize=150)  
-root.grid_rowconfigure(2, minsize=150)  
+frame1.place(relx=0, rely=0, relwidth=0.5, relheight=0.5)
+frame2.place(relx=0.5, rely=0, relwidth=0.5, relheight=0.5)
+frame3.place(relx=0, rely=0.5, relwidth=0.5, relheight=0.5)
 
 print(root.winfo_screenwidth())
 print(root.winfo_screenheight())
 
 # Create labels for each frame
-label1 = UpdateLabel(frame1, text='Label 1', fg='black', font=('Arial', 16))
-label2 = tk.Label(frame2, text='Label 2', fg='black', font=('Arial', 16))
-label3 = tk.Label(frame3, text='Label 3', fg='black', font=('Arial', 16))
+label1 = UpdateLabel(frame1, text='Label 1', fg='black', bg='lightblue', font=('Arial', 16))
+label2 = tk.Label(frame2, text='Label 2', fg='black', bg='lightgreen', font=('Arial', 16))
+label3 = tk.Label(frame3, text='Label 3', fg='black', bg='lightyellow', font=('Arial', 16))
 
 # Pack the labels inside the frames
 label1.pack(expand=True)
