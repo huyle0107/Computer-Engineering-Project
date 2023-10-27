@@ -9,12 +9,12 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QSlider, QSpinBox, QStyleFactory, QTableWidget, QTabWidget, QTextEdit,
         QVBoxLayout, QWidget, QFileDialog, QMainWindow, QDesktopWidget)
 
-def createTopFirstGroupBox(self, n):
+def createTopFirstGroupBox(self, data):
     self.topFirstGroupBox = QGroupBox()
     radioButton = list()
 
-    for i in range(n):
-        k = QRadioButton(f"Server mã {i + 1}")
+    for i in range(6):
+        k = QRadioButton(f"Node {i + 1} - {data['NodeID']}, {data['SensorID']}, {data['value']}")
         radioButton.append(k)
         
     # radioButton[0].setChecked(True)
@@ -37,7 +37,7 @@ def createTopFirstGroupBox(self, n):
     label.setParent(title_spacer)
     layout.addWidget(title_spacer)
 
-    for j in range(n):
+    for j in range(6):
         layout.addWidget(radioButton[j])
         # Set the size of the button (width x height)
         radioButton[j].setStyleSheet("QAbstractButton::indicator { width: 40px; height: 40px; }")

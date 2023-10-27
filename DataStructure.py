@@ -72,3 +72,4 @@ class Node:
             current_sensor.next = NodeSensor(sensorID, data)
             return data
 
+root_node = Node()

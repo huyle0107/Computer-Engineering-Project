@@ -1,6 +1,5 @@
-title_watermonitoring = ["Temperature", "Salinity", "EC", "ORP"]
-title_soilmonitoring = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
-title_airmonitoring = ["Temperature", "Humidity", "Lux", "CO2"]
-title = [title_watermonitoring, title_soilmonitoring, title_airmonitoring]
+ListNodeBox = tk.Frame(root, bg='lightblue')
+# ListNodeBox.grid(row = 2 // 2, column = 2 % 2, sticky='nsew')
 
-print(title[1][1])
+# label1 = UpdateLabel(ListNodeBox, text="Loading...", fg='black', font=('Arial', 16))
+# label1.pack(expand=True, padx=20, pady=20)
