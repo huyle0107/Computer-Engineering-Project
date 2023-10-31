@@ -1,23 +1,5 @@
-import serial
-import time
-import json
-# from ConvertFloat import *
+ListNodeBox = tk.Frame(root, bg='lightblue')
+# ListNodeBox.grid(row = 2 // 2, column = 2 % 2, sticky='nsew')
 
-line = list()
-count = 0
-
-if __name__ == "__main__":
-    #Take 4 bytes of data from response data and convert to Binary
-    ser = serial.Serial(port = 'COM4', baudrate = 115200)
-    while (True):   
-        line = ser.readline().decode('utf-8')
-
-        print(line)
-        start_index = line.find("[")
-        end_index = line.find("]")
-        if start_index != -1 and end_index != -1:
-            tempStr = line[:start_index]  # Extract A
-            IDtemp = line[start_index:end_index + 1]  
-        print(f"ID: {IDtemp}")
-        Return_data = json.loads(IDtemp)
-        print(Return_data[1])
+# label1 = UpdateLabel(ListNodeBox, text="Loading...", fg='black', font=('Arial', 16))
+# label1.pack(expand=True, padx=20, pady=20)
