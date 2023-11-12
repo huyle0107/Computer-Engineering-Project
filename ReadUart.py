@@ -11,7 +11,7 @@ from DataStructure import *
 #         print(line)
 
 def AnalyzeData(line, data):
-    parts = line.split("_")
+    parts = line.split("/")
     data['NodeID'] = parts[0]
     data['SensorID'] = parts[1]
     data['value'] = float(parts[2])
