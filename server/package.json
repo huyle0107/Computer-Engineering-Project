@@ -41,6 +41,8 @@
     "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "mqtt": "^5.2.1",
+    "paho-mqtt": "^1.1.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",

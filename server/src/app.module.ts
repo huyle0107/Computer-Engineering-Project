@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SensorsModule } from './app/sensors/sensors.module';
 import { StationsModule } from './app/stations/stations.module';
+import { MqttModule } from './library/mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { StationsModule } from './app/stations/stations.module';
     // }),
     SensorsModule,
     StationsModule,
+    MqttModule,
     ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
