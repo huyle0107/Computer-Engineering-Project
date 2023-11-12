@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "email": "brands@joinvas.com",
+    "password": "Brands123",
+    "plan": "VIP"
+  },
+  {
+    "id": 2,
+    "email": "s-kimura@kimurasoap.co.jp",
+    "password": "Users123",
+    "plan": "FREE"
+  }
+]

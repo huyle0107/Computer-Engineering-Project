@@ -51,3 +51,5 @@ export enum TaskStatus {
   NOTIFIED = 'NOTIFIED',
   UNNOTIFIED = 'UNNOTIFIED',
 }
+
+export enum WaterSensorType {}

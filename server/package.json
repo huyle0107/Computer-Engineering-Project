@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^8.1.1",
     "@nestjs/schedule": "^3.0.4",
     "@nestjs/swagger": "^6.2.1",
+    "@supabase/supabase-js": "^2.38.4",
     "@types/lodash": "^4.14.194",
     "@types/node": "^16.11.1",
     "aws-sdk": "^2.1349.0",
