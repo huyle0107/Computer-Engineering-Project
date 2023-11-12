@@ -6,6 +6,9 @@ import { AppService } from './app.service';
 // import * as redisStore from 'cache-manager-redis-store';
 // import { RedisService } from './lib/redis/redis.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SensorsModule } from './app/sensors/sensors.module';
+import { StationsModule } from './app/stations/stations.module';
+import { MqttModule } from './library/mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -18,6 +21,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     //   isGlobal: true,
     //   ttl: 30 * 24 * 60 * 60, //ttl  # 30 days * 24 hours * 60 minutes * 60 seconds
     // }),
+    SensorsModule,
+    StationsModule,
+    MqttModule,
     ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
