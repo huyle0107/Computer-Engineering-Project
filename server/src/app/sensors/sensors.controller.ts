@@ -13,10 +13,10 @@ import { SensorsService } from './sensors.service';
 export class SensorsController {
   constructor(private readonly sensorsService: SensorsService) {}
 
-  @Post('watermonitoring/:id')
+  @Post('create')
   @UsePipes(new ValidationPipe())
-  async createSensor(@Param('id') sensorsType: string) {
-    await this.sensorsService.insertSensor(sensorsType);
+  async createSensor(@Body() data: any) {
+    await this.sensorsService.insertSensor(data);
     return {};
   }
 }

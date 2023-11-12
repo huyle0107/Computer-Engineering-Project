@@ -16,7 +16,6 @@ export class StationsController {
   @Post('create')
   @UsePipes(new ValidationPipe())
   async createStations(@Body() data: any) {
-    await this.stationsService.insertStations(data);
-    return {};
+    return await this.stationsService.insertStations(data);
   }
 }
