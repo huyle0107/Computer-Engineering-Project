@@ -9,11 +9,11 @@ from DataStructure import *
 #     while (True):   
 #         line = ser.readline().decode('utf-8')
 #         print(line)
+
 def AnalyzeData(line, data):
     parts = line.split("_")
-    data['NodeID'] = int(parts[0])
-    data['SensorID'] = int(parts[1])
+    data['NodeID'] = parts[0]
+    data['SensorID'] = parts[1]
     data['value'] = float(parts[2])
     data['value'] = root_node.updateNode(data['NodeID'], data['SensorID'], data['value'])
     print_node_details(root_node)
-
