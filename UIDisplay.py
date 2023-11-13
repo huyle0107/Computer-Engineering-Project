@@ -7,13 +7,9 @@ import threading
 from time import sleep
 import time
 import random
-import matplotlib.pyplot as plt
 
-import matplotlib.pyplot as plt
+from ReadUart import AnalyzeData
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-# from ReadUart import AnalyzeData
-  
 # ser = serial.Serial(port = 'COM11', baudrate = 115200)
 
 # title_watermonitoring = ["Temperature", "Salinity", "EC", "ORP"]
@@ -42,18 +38,6 @@ def resize_rounded_frame(canvas,event):
     canvas_height = event.height
     create_rounded_frame(canvas, 0, 0, canvas_width, canvas_height, 30, "white")
 
-# Get all values in the Treeview
-global values
-def get_all_values():
-    global values
-    values = []
-    for item in tree.get_children():
-        topic = tree.item(item, "values")[1]
-        value = tree.item(item, "values")[2]
-        values.append((topic, value))
-
-
-
 root = tk.Tk()
 root.geometry("1024x600")
 root.title("Resizable Rounded Frame")
@@ -68,13 +52,11 @@ canvas3.place(relx=0.01, rely=0.51, relwidth=0.49, relheight=0.48)
 canvas4 = tk.Canvas(root, background="blue", highlightthickness=0)
 canvas4.place(relx=0.51, rely=0.51, relwidth=0.48, relheight=0.48)
 
-
-
 giatri = ""
 o1 = "Station Available"
 o2 = ""
-o3 = "Diary of value"
-o4 = "History of "
+o3 = f"Giá trị theo thời gian"
+o4 = "lịch sử"
 
 stringLabel1 = tk.Label(canvas1, text=f'{o1}', bg="white", anchor="w", font=("Arial", 22, "bold"))
 stringLabel1.place(relx=0.05, rely=0.05, relwidth=0.8, relheight=0.1)
@@ -108,11 +90,10 @@ def create_button():
     global giatri
     giatri = selected_value.get()
     selected_value2 = tk.StringVar(value="NULL")
-
-    if giatri == "Water Station":
-        child = ["Temperature", "Salinity", "EC", "ORP", "PH"]
-        stringLabel2 = tk.Label(canvas2, text="Water Station", bg="white", anchor="center", font=("Arial", 25), fg="blue")
-        stringLabel2.place(relx=0.2, rely=0.05, relwidth=0.5, relheight=0.1)
+    if giatri == "watermonitoring":
+         child = ["Temperature", "Salinity", "EC", "ORP", "PH"]
+         stringLabel2 = tk.Label(canvas2, text="Water Station", bg="white", anchor="center", font=("Arial", 25), fg="blue")
+         stringLabel2.place(relx=0.2, rely=0.05, relwidth=0.5, relheight=0.1)
 
         stringLabel2 = tk.Label(canvas2, text="Temperature (℃)", bg="white", anchor="w", font=("Arial", 15), fg="blue")
         stringLabel2.place(relx=0.15, rely=0.2, relwidth=0.5, relheight=0.1)
@@ -126,55 +107,27 @@ def create_button():
         stringLabel2 = tk.Label(canvas2, text="PH", bg="white", anchor="w", font=("Arial", 15), fg="blue")
         stringLabel2.place(relx=0.7, rely=0.5, relwidth=0.5, relheight=0.1)
 
-        stringLabel2 = tk.Label(canvas2, text="Salanity", bg="white", anchor="w", font=("Arial", 15), fg="blue")
-        stringLabel2.place(relx=0.45, rely=0.8, relwidth=0.5, relheight=0.1)
-
-        for widget in canvas4.winfo_children():
-            widget.destroy()
-
-        labelW = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelW.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
-
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 25))
-        combobox.place(relx=0.23, rely=0.085, relwidth=0.23, relheight=0.075)
-
-
-    elif giatri == "Soil Station":
-        child = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
-        x = 0.15
-        for i in child:
+         stringLabel2 = tk.Label(canvas2, text="Salanity", bg="white", anchor="w", font=("Arial", 15), fg="blue")
+         stringLabel2.place(relx=0.45, rely=0.8, relwidth=0.5, relheight=0.1)
+         
+    elif giatri =="soilmonitoring":
+         child = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
+         x = 0.15
+         for i in child:
             radiobutton1canvas2 = tk.Radiobutton(canvas2, text=i, variable=selected_value2, value=i, command=click_command, background="white",activebackground="white",anchor="w")
             radiobutton1canvas2.place(relx=0.1, rely=x +0.1, relwidth=0.2, relheight=0.1)
             x = x + 0.1
+    elif giatri =="airmonitoring":
 
-
-        for widget in canvas4.winfo_children():
-            widget.destroy()
-
-        labelS = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelS.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
-
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 25))
-        combobox.place(relx=0.23, rely=0.085, relwidth=0.23, relheight=0.075)
-
-
-    elif giatri == "Air Station":
         child = ["Temperature", "Humidity", "Lux", "CO2"]
         x = 0.15
         for i in child:
             radiobutton1canvas2 = tk.Radiobutton(canvas2, text=i, variable=selected_value2, value=i, command=click_command, background="white",activebackground="white",anchor="w")
             radiobutton1canvas2.place(relx=0.1, rely=x +0.1, relwidth=0.2, relheight=0.1)
             x = x + 0.1
-        for widget in canvas4.winfo_children():
-            widget.destroy()
 
-        labelA = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelA.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
-
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 25))
-        combobox.place(relx=0.23, rely=0.085, relwidth=0.23, relheight=0.075)
-
-
+        combobox = tk.ttk.Combobox(canvas4, values=child)
+        combobox.place(relx=0.3, rely=0.1, relwidth=0.3, relheight=0.1)
     elif giatri =="D":
         radiobutton1canvas2 = tk.Radiobutton(canvas2, text="E", variable=selected_value2, value="E", command=click_command, background="white",activebackground="white")
         radiobutton1canvas2.place(relx=0.1, rely=0.2, relwidth=0.2, relheight=0.1)
@@ -202,6 +155,7 @@ tree.heading("cot3", text="Dữ Liệu", anchor="center")
 def update_records():
     while (True):
         current_time = time.strftime("%H:%M:%S")
+        break
 
         # line = ser.readline().decode('utf-8')
         # AnalyzeData(line, data)
@@ -232,25 +186,8 @@ dataset = ["Water Station", "Soil Station", "Air Station"]
 xcanvas1 = 0.01
 for i in dataset:
 
-    radiobutton1 = tk.Radiobutton(canvas1, text=i, variable=selected_value, value=i, command=create_button, background="white",activebackground="white",anchor="w", padx=50, font = ("Arial", 20))
-    radiobutton1.place(relx=0.05, rely=xcanvas1+0.2, relwidth=0.4, relheight=0.1)
-    xcanvas1 = xcanvas1 + 0.2
+    radiobutton1 = tk.Radiobutton(canvas1, text=i, variable=selected_value, value=i, command=create_button, background="white",activebackground="white",anchor="w")
+    radiobutton1.place(relx=0.1, rely=xcanvas1+0.1, relwidth=0.4, relheight=0.1)
+    xcanvas1 = xcanvas1 + 0.1
 
-
-# Create some sample data for the line chart
-x = [1, 2, 3, 4, 5]
-y = [2, 4, 6, 8, 10]
-
-# Create a matplotlib figure
-fig = plt.figure(figsize=(5, 4))
-ax = fig.add_subplot(111)
-ax.plot(x, y) # Plot the line chart
-ax.set_title("A Simple Line Chart")
-ax.set_xlabel("X-axis")
-ax.set_ylabel("Y-axis")
-
-# Create a canvas widget to display the figure
-canvas = FigureCanvasTkAgg(fig, master=canvas4)
-canvas.draw()
-canvas.get_tk_widget().place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
 root.mainloop()

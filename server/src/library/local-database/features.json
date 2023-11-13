@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "featureName": "CUSTOMER_PROFILE",
+    "description": "Customer Profile",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 2,
+    "featureName": "USAGE_SCENARIO",
+    "description": "Usage Scenario",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 3,
+    "featureName": "CUSTOMER_SENTIMENT",
+    "description": "Customer Sentiment",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 4,
+    "featureName": "BUYERS_MOTIVATION",
+    "description": "Buyers Motivation",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 5,
+    "featureName": "SCRAPING_ON_DEMAND",
+    "description": "Scraping on demand",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 6,
+    "featureName": "COMPETITIVE_ANALYSIS",
+    "description": "Competitive Analysis",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 7,
+    "featureName": "GET_DETAILS",
+    "description": "Get Details",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 8,
+    "featureName": "FINDER",
+    "description": "Finder page",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 9,
+    "featureName": "DATA_ANALYZER",
+    "description": "Data analyzer page",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 10,
+    "featureName": "REPORTS",
+    "description": "Reports page",
+    "FREE": "TRUE",
+    "VIP": "TRUE"
+  },
+  {
+    "id": 11,
+    "featureName": "ORGANIZATION",
+    "description": "Organization page",
+    "FREE": "FALSE",
+    "VIP": "TRUE"
+  }
+]
