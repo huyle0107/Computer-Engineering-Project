@@ -25,6 +25,10 @@ class MQTTHelper:
     MQTT_TOPIC_AIR_CO2 = "WaterStation/CO2"
     MQTT_TOPIC_AIR_TEMP = "AirStation/TEMP"
     MQTT_TOPIC_AIR_HUMID = "AirStation/HUMID"
+    MQTT_TOPIC_AIR_NOISE = "AirStation/NOISE"
+    MQTT_TOPIC_AIR_PM2 = "AirStation/PM2"
+    MQTT_TOPIC_AIR_PM10 = "AirStation/PM10"
+    MQTT_TOPIC_AIR_PRESSURE = "AirStation/PRESSURE"
 
     recvCallBack = None
 
