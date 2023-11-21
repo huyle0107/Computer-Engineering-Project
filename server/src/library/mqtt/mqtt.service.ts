@@ -1,59 +1,72 @@
-// mqtt.service.ts
+import { connect, MqttClient } from 'mqtt';
 import { Injectable } from '@nestjs/common';
-import * as mqtt from 'mqtt';
 import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
 export class MqttService {
-  private readonly MQTT_SERVER = 'mqttserver.tk';
-  private readonly MQTT_PORT = 1883;
-  private readonly MQTT_USERNAME = 'innovation';
-  private readonly MQTT_PASSWORD = 'Innovation_RgPQAZoA5N';
-  private readonly MQTT_TOPIC_SUB_SOIL = '/innovation/soilmonitoring';
-  private readonly MQTT_TOPIC_SUB_WATER = '/innovation/watermonitoring';
-  private readonly MQTT_TOPIC_SUB_AIR = '/innovation/airmonitoring';
-  private readonly MQTT_TOPIC_SUB_VALVE = '/innovation/valvecontroller';
-  private readonly MQTT_TOPIC_SUB_PUMP = '/innovation/pumpcontroller';
-  // Add other MQTT topics as needed
-
-  private mqttClient: mqtt.MqttClient;
+  private readonly client: MqttClient;
 
   constructor(private readonly supabase: SupabaseService) {
-    this.mqttClient = mqtt.connect(
-      `mqtt://${this.MQTT_SERVER}:${this.MQTT_PORT}`,
-      {
-        username: this.MQTT_USERNAME,
-        password: this.MQTT_PASSWORD,
-      },
-    );
+    // Replace 'mqtt://localhost:1883' with your MQTT server URL
+    // Provide username and password in the options object
 
-    this.setupMqttHandlers();
-  }
-
-  private setupMqttHandlers() {
-    this.mqttClient.on('connect', () => {
-      console.log('Connected successfully!!');
-      this.mqttClient.subscribe(this.MQTT_TOPIC_SUB_SOIL);
-      this.mqttClient.subscribe(this.MQTT_TOPIC_SUB_WATER);
-      this.mqttClient.subscribe(this.MQTT_TOPIC_SUB_AIR);
-      this.mqttClient.subscribe(this.MQTT_TOPIC_SUB_VALVE);
-      this.mqttClient.subscribe(this.MQTT_TOPIC_SUB_PUMP);
-      // Subscribe to other topics here
+    this.client = connect('mqtt://178.128.28.238:1883', {
+      username: 'ce_capstone',
+      password: 'ce_capstone_2023',
     });
 
-    this.mqttClient.on('message', async (topic, message) => {
-      // Handle received messages
-      console.log(`Received message on topic ${topic}: ${message.toString()}`);
-      const temp = await this.supabase.getStationByName(
-        JSON.parse(message.toString()).station_id,
-      );
-      console.log(temp);
+    // Handle connection events
+    this.client.on('connect', () => {
+      console.log('Connected to MQTT server');
+      this.subscribeToTopics();
+    });
+
+    this.client.on('message', async (topic, message) => {
+      console.log('Received message:', topic, message.toString());
+      await this.supabase.insertSensorData({
+        topic,
+        message: message.toString(),
+      });
+    });
+
+    this.client.on('error', (err) => {
+      console.error('MQTT Error:', err);
     });
   }
 
-  public setRecvCallBack(callback: (message: string) => void) {
-    this.mqttClient.on('message', (_, message) => {
-      callback(message.toString());
+  private subscribeToTopics() {
+    // Define an array of topics to subscribe to
+    const topicsToSubscribe = [
+      'WaterStation/EC',
+      'WaterStation/PH',
+      'WaterStation/SALINITY',
+      'WaterStation/TEMP',
+      'WaterStation/ORP',
+      'SoilStation/TEMP',
+      'SoilStation/HUMID',
+      'SoilStation/EC',
+      'SoilStation/PH',
+      'SoilStation/N',
+      'SoilStation/P',
+      'SoilStation/K',
+      'AirStation/TEMP',
+      'AirStation/HUMID',
+      'AirStation/LUX',
+      'AirStation/NOISE',
+      'AirStation/PM2.5',
+      'AirStation/PM10',
+      'AirStation/ATMOSPHERE',
+    ];
+
+    // Subscribe to each topic
+    topicsToSubscribe.forEach((topic) => {
+      this.client.subscribe(topic, (err) => {
+        if (!err) {
+          console.log(`Subscribed to topic: ${topic}`);
+        } else {
+          console.error(`Error subscribing to topic ${topic}: ${err}`);
+        }
+      });
     });
   }
 }

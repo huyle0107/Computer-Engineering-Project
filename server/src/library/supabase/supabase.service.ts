@@ -50,4 +50,22 @@ export class SupabaseService {
 
     return '';
   }
+
+  async insertSensorData(data: any) {
+    try {
+      await this.supabaseClient
+        .from('sensors')
+        .update({ current_value: data.message })
+        .eq('name', data.topic)
+        .select();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  async getSensorData() {
+    const { data: res } = await this.supabaseClient.from('sensors').select();
+    console.log(res);
+    return { data: res };
+  }
 }
