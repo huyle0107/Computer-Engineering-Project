@@ -1,15 +1,15 @@
-// mqtt.service.ts
-import { connect, MqttClient } from 'mqtt'; // Importing 'Client' as a type
-
+import { connect, MqttClient } from 'mqtt';
 import { Injectable } from '@nestjs/common';
+import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
 export class MqttService {
   private readonly client: MqttClient;
 
-  constructor() {
+  constructor(private readonly supabase: SupabaseService) {
     // Replace 'mqtt://localhost:1883' with your MQTT server URL
     // Provide username and password in the options object
+
     this.client = connect('mqtt://178.128.28.238:1883', {
       username: 'ce_capstone',
       password: 'ce_capstone_2023',
@@ -18,11 +18,15 @@ export class MqttService {
     // Handle connection events
     this.client.on('connect', () => {
       console.log('Connected to MQTT server');
-      // console.log(this.client);
+      this.subscribeToTopics();
     });
 
-    this.client.on('message', (topic, message) => {
+    this.client.on('message', async (topic, message) => {
       console.log('Received message:', topic, message.toString());
+      await this.supabase.insertSensorData({
+        topic,
+        message: message.toString(),
+      });
     });
 
     this.client.on('error', (err) => {
@@ -30,17 +34,39 @@ export class MqttService {
     });
   }
 
-  publish(topic: string, message: string): void {
-    this.client.publish(topic, message);
-  }
+  private subscribeToTopics() {
+    // Define an array of topics to subscribe to
+    const topicsToSubscribe = [
+      'WaterStation/EC',
+      'WaterStation/PH',
+      'WaterStation/SALINITY',
+      'WaterStation/TEMP',
+      'WaterStation/ORP',
+      'SoilStation/TEMP',
+      'SoilStation/HUMID',
+      'SoilStation/EC',
+      'SoilStation/PH',
+      'SoilStation/N',
+      'SoilStation/P',
+      'SoilStation/K',
+      'AirStation/TEMP',
+      'AirStation/HUMID',
+      'AirStation/LUX',
+      'AirStation/NOISE',
+      'AirStation/PM2.5',
+      'AirStation/PM10',
+      'AirStation/ATMOSPHERE',
+    ];
 
-  subscribe(topic: string): void {
-    this.client.subscribe(topic);
-  }
-
-  onMessage(callback: (topic: string, message: string) => void): void {
-    this.client.on('message', (topic, message) => {
-      callback(topic, message.toString());
+    // Subscribe to each topic
+    topicsToSubscribe.forEach((topic) => {
+      this.client.subscribe(topic, (err) => {
+        if (!err) {
+          console.log(`Subscribed to topic: ${topic}`);
+        } else {
+          console.error(`Error subscribing to topic ${topic}: ${err}`);
+        }
+      });
     });
   }
 }
