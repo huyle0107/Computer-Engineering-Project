@@ -20,7 +20,7 @@ COPY . .
 RUN NODE_OPTIONS="--max-old-space-size=4096" yarn build
 
 # Expose the port on which the application is running
-EXPOSE 8888
+EXPOSE 4000
 
 # Start the application
 CMD [ "yarn", "start:prod" ]
