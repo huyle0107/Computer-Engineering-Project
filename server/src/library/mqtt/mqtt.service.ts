@@ -10,7 +10,7 @@ export class MqttService {
     // Replace 'mqtt://localhost:1883' with your MQTT server URL
     // Provide username and password in the options object
 
-    this.client = connect('mqtt://178.128.28.238:1883', {
+    this.client = connect('mqtt://167.172.86.42:1883', {
       username: 'ce_capstone',
       password: 'ce_capstone_2023',
     });
