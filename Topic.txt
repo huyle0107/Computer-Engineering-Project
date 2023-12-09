@@ -1,0 +1,63 @@
+	TOPIC từ GateWay lên server:
+WaterStation:
+	EC:		WaterStation/EC
+	PH:		WaterStation/PH 
+	SALINITY:	WaterStation/SALINITY
+	TEMP:		WaterStation/TEMP
+	ORP:		WaterStation/ORP
+
+
+Soil-Station: 
+	TEMP: 		SoilStation/TEMP
+	HUMID:		SoilStation/HUMID
+	EC:		SoilStation/EC
+	PH:		SoilStation/PH
+	N:		SoilStation/N
+	P:		SoilStation/P
+	K:		SoilStation/K
+
+Air-Station:
+	TEMP:		AirStation/TEMP
+	HUMID:		AirStation/HUMID
+	LUX:		AirStation/LUX
+    	NOISE: 		AirStation/NOISE
+    	PM2.5: 		AirStation/PM2.5
+    	PM10: 		AirStation/PM10
+    	ATMOSPHERE: 	AirStation/ATMOSPHERE
+
+
+	Message từ Sensor về GateWay:
+WaterStation:
+	EC:		WaterStation/EC/value
+	PH:		WaterStation/PH/value 
+	SALINITY:	WaterStation/SALINITY/value
+	TEMP:		WaterStation/TEMP/value
+	ORP:		WaterStation/ORP/value
+
+
+Soil-Station: 
+	TEMP: 		SoilStation/TEMP/value
+	HUMID:		SoilStation/HUMID/value
+	EC:		SoilStation/EC/value
+	PH:		SoilStation/PH/value
+	N:		SoilStation/N/value
+	P:		SoilStation/P/value
+	K:		SoilStation/K/value
+
+Air-Station:
+	TEMP:		AirStation/TEMP/value
+	HUMID:		AirStation/HUMID/value
+	LUX:		AirStation/LUX/value
+    	NOISE: 		AirStation/NOISE/value
+    	PM2.5: 		AirStation/PM2.5/value
+    	PM10: 		AirStation/PM10/value
+    	ATMOSPHERE: 	AirStation/ATMOSPHERE/value
+
+
+
+
+
+
+
+
+

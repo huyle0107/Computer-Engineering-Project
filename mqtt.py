@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 
 class MQTTHelper:
 
-    MQTT_SERVER = "178.128.28.238"
+    MQTT_SERVER = "167.172.86.42"
     MQTT_PORT = 1883
     MQTT_USERNAME = "ce_capstone"
     MQTT_PASSWORD = "ce_capstone_2023"
@@ -21,14 +21,13 @@ class MQTTHelper:
     MQTT_TOPIC_SOIL_TEMP = "SoilStation/TEMP"
     MQTT_TOPIC_SOIL_HUMID = "SoilStation/HUMID"
 
-    MQTT_TOPIC_AIR_LUX = "WaterStation/LUX"
-    MQTT_TOPIC_AIR_CO2 = "WaterStation/CO2"
+    MQTT_TOPIC_AIR_LUX = "AirStation/LUX"
     MQTT_TOPIC_AIR_TEMP = "AirStation/TEMP"
     MQTT_TOPIC_AIR_HUMID = "AirStation/HUMID"
     MQTT_TOPIC_AIR_NOISE = "AirStation/NOISE"
-    MQTT_TOPIC_AIR_PM2 = "AirStation/PM2"
+    MQTT_TOPIC_AIR_PM2 = "AirStation/PM2.5"
     MQTT_TOPIC_AIR_PM10 = "AirStation/PM10"
-    MQTT_TOPIC_AIR_PRESSURE = "AirStation/PRESSURE"
+    MQTT_TOPIC_AIR_ATMOSPHERE = "AirStation/ATMOSPHERE"
 
     recvCallBack = None
 
@@ -51,18 +50,18 @@ class MQTTHelper:
         client.subscribe(self.MQTT_TOPIC_SOIL_HUMID)
 
         client.subscribe(self.MQTT_TOPIC_AIR_LUX)
-        client.subscribe(self.MQTT_TOPIC_AIR_CO2)
         client.subscribe(self.MQTT_TOPIC_AIR_TEMP)
+        client.subscribe(self.MQTT_TOPIC_AIR_HUMID)
         client.subscribe(self.MQTT_TOPIC_AIR_NOISE)
         client.subscribe(self.MQTT_TOPIC_AIR_PM2)
         client.subscribe(self.MQTT_TOPIC_AIR_PM10)
-        client.subscribe(self.MQTT_TOPIC_AIR_PRESSURE)
+        client.subscribe(self.MQTT_TOPIC_AIR_ATMOSPHERE)
 
     def mqtt_subscribed(self, client, userdata, mid, granted_qos):
-        print("Subscribed to Topic!!!")
+        print("Subscribed to Topic!!!\n")
 
     def mqtt_recv_message(self, client, userdata, message):
-        print("Received: ", message)
+        print(f"Received: --- Topic: {message.topic} - Value: {message.payload.decode('utf-8')}\n")
         self.recvCallBack(message)
 
     def __init__(self):
@@ -80,8 +79,4 @@ class MQTTHelper:
 
     def setRecvCallBack(self, func):
         self.recvCallBack = func
-
-    def setPublishData(self, node, data):
-        self.mqttClient.publish(node, data, retain=True)
-
 

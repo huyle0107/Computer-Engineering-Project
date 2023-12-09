@@ -1,7 +1,3 @@
-import json
-import sys
-import os
-import serial
 import time
 import threading
 import matplotlib.pyplot as plt
@@ -11,12 +7,7 @@ from mqtt import *
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from ReadUart import AnalyzeData
-
 ################## Open port ############################
-
-ser = serial.Serial(port = 'COM11', baudrate = 115200)
-
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
 
@@ -106,42 +97,67 @@ canvas3.bind("<Configure>", lambda event, canvas=canvas3: resize_rounded_frame(c
 canvas4.bind("<Configure>", lambda event, canvas=canvas4: resize_rounded_frame(canvas, event))
 
 
-
-########################### Create for each station ################################
+########################### Declare variables ################################
 
 global selected_value2
 global thread
-thread = None
 
+WaterLabelTemp = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+WaterLabelSal = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+WaterLabelPH = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+WaterLabelORP = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+WaterLabelEC = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+
+SoilLabelTemp = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelHumid = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelPH = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelEC = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelN = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelP = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+SoilLabelK = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+
+AirLabelTemp = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20)) 
+AirLabelHumid = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+AirLabelLux = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+AirLabelNoise = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+AirLabelPM2 = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+AirLabelPM10 = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+AirLabelPressure = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
+
+WaterLabelTempValue = "24.89"
+WaterLabelSalValue = "468.79"
+WaterLabelPHValue = "6.72"
+WaterLabelORPValue = "114.0"
+WaterLabelECValue = "0.85"
+
+SoilLabelTempValue = "24.89"
+SoilLabelHumidValue = "55.25"
+SoilLabelPHValue = "6.72" 
+SoilLabelECValue = "0.85" 
+SoilLabelNValue = "0.85" 
+SoilLabelPValue = "0.85"  
+SoilLabelKValue = "0.85"  
+
+AirLabelTempValue = "24.89"
+AirLabelHumidValue = "67.23"
+AirLabelLuxValue = "114.00"
+AirLabelNoiseValue = "29.95"
+AirLabelPM2Value = "20.51"
+AirLabelPM10Value = "20.51"
+AirLabelPressureValue = "101.32"
+
+global combobox
+temp_combobox = ""
+
+thread = None
 mqttObject = MQTTHelper()
 
-global WaterLabelTemp
-global WaterLabelSal
-global WaterLabelPH
-global WaterLabelORP
-global WaterLabelEC
-
-global SoilLabelTemp
-global SoilLabelHumid
-global SoilLabelPH
-global SoilLabelEC
-global SoilLabelN
-global SoilLabelP
-global SoilLabelK
-
-global AirLabelTemp
-global AirLabelHumid
-global AirLabelLux
-global AirLabelNoise
-global AirLabelPM2
-global AirLabelPM10
-global AirLabelPressure
-
+########################### Create for each station ################################
 def create_button():
-    
     for widget in canvas2.winfo_children():
         widget.destroy()
     global giatri
+    global combobox
     giatri = selected_value.get()
     selected_value2 = tk.StringVar(value="NULL")
 
@@ -173,20 +189,20 @@ def create_button():
         WaterLabel = tk.Label(canvas2, text="EC (ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
         WaterLabel.place(relx=0.68, rely=0.5, relwidth=0.3, relheight=0.1)
 
-        WaterLabelTemp = tk.Label(canvas2, text="24.89", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelTemp.place(relx=0.16, rely=0.29, relwidth=0.5, relheight=0.1)
+        WaterLabelTemp = tk.Label(canvas2, text=WaterLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelTemp.place(relx=0.19, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        WaterLabelSal = tk.Label(canvas2, text="468.79", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelSal = tk.Label(canvas2, text=WaterLabelSalValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
         WaterLabelSal.place(relx=0.49, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        WaterLabelPH = tk.Label(canvas2, text="6.72", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelPH = tk.Label(canvas2, text=WaterLabelPHValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
         WaterLabelPH.place(relx=0.785, rely=0.29, relwidth=0.5, relheight=0.1)
         
-        WaterLabelORP = tk.Label(canvas2, text="114.0", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelORP.place(relx=0.23, rely=0.59, relwidth=0.5, relheight=0.1)
+        WaterLabelORP = tk.Label(canvas2, text=WaterLabelORPValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelORP.place(relx=0.24, rely=0.59, relwidth=0.5, relheight=0.1)
 
-        WaterLabelEC = tk.Label(canvas2, text="0.85", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelEC.place(relx=0.705, rely=0.59, relwidth=0.5, relheight=0.1)
+        WaterLabelEC = tk.Label(canvas2, text=WaterLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelEC.place(relx=0.715, rely=0.59, relwidth=0.5, relheight=0.1)
 
         for widget in canvas4.winfo_children():
             widget.destroy()
@@ -197,16 +213,15 @@ def create_button():
         combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
         combobox.place(relx=0.28, rely=0.085, relwidth=0.28, relheight=0.075)
 
-
     elif giatri == "Soil Station":
 
-        global SoilLabelTemp
-        global SoilLabelHumid
-        global SoilLabelPH
-        global SoilLabelEC
-        global SoilLabelN
-        global SoilLabelP
-        global SoilLabelK
+        global SoilLabelTemp 
+        global SoilLabelHumid 
+        global SoilLabelPH 
+        global SoilLabelEC 
+        global SoilLabelN 
+        global SoilLabelP 
+        global SoilLabelK 
 
         child = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
 
@@ -214,46 +229,46 @@ def create_button():
         stringLabel2.place(relx=0.29, rely=0.05, relwidth=0.5, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="Temperature (℃)", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.2, rely=0.2, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.15, rely=0.2, relwidth=0.3, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="Humidity (%)", bg="white", anchor="w", font=("Arial", 20), fg="red")
         SoilLabel.place(relx=0.65, rely=0.2, relwidth=0.3, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="PH", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.28, rely=0.45, relwidth=0.1, relheight=0.1)
+        SoilLabel.place(relx=0.265, rely=0.45, relwidth=0.1, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="EC (ppm)", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.67, rely=0.45, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.68, rely=0.45, relwidth=0.3, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="N", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.29, rely=0.7, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.28, rely=0.7, relwidth=0.3, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="P", bg="white", anchor="w", font=("Arial", 20), fg="red")
         SoilLabel.place(relx=0.515, rely=0.7, relwidth=0.3, relheight=0.1)
 
         SoilLabel = tk.Label(canvas2, text="K", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.74, rely=0.7, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.75, rely=0.7, relwidth=0.3, relheight=0.1)
 
-        SoilLabelTemp = tk.Label(canvas2, text="24.89", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelTemp.place(relx=0.255, rely=0.29, relwidth=0.5, relheight=0.1)
+        SoilLabelTemp = tk.Label(canvas2, text=SoilLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelTemp.place(relx=0.233, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        SoilLabelHumid = tk.Label(canvas2, text="55.25", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelHumid.place(relx=0.687, rely=0.29, relwidth=0.5, relheight=0.1)
+        SoilLabelHumid = tk.Label(canvas2, text=SoilLabelHumidValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelHumid.place(relx=0.7, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        SoilLabelPH = tk.Label(canvas2, text="6.72", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelPH.place(relx=0.26, rely=0.54, relwidth=0.5, relheight=0.1)
+        SoilLabelPH = tk.Label(canvas2, text=SoilLabelPHValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelPH.place(relx=0.248, rely=0.54, relwidth=0.5, relheight=0.1)
         
-        SoilLabelEC = tk.Label(canvas2, text="0.85", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelEC.place(relx=0.7, rely=0.54, relwidth=0.5, relheight=0.1)
+        SoilLabelEC = tk.Label(canvas2, text=SoilLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelEC.place(relx=0.72, rely=0.54, relwidth=0.5, relheight=0.1)
 
-        SoilLabelN = tk.Label(canvas2, text="0.85", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelN.place(relx=0.268, rely=0.79, relwidth=0.5, relheight=0.1)
+        SoilLabelN = tk.Label(canvas2, text=SoilLabelNValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelN.place(relx=0.248, rely=0.79, relwidth=0.5, relheight=0.1)
 
-        SoilLabelP = tk.Label(canvas2, text="0.85", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelP = tk.Label(canvas2, text=SoilLabelPValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
         SoilLabelP.place(relx=0.488, rely=0.79, relwidth=0.5, relheight=0.1)
 
-        SoilLabelK = tk.Label(canvas2, text="0.85", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelK.place(relx=0.718, rely=0.79, relwidth=0.5, relheight=0.1)
+        SoilLabelK = tk.Label(canvas2, text=SoilLabelKValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
+        SoilLabelK.place(relx=0.72, rely=0.79, relwidth=0.5, relheight=0.1)
 
         for widget in canvas4.winfo_children():
             widget.destroy()
@@ -268,12 +283,12 @@ def create_button():
     elif giatri == "Air Station":
 
         global AirLabelTemp
-        global AirLabelHumid
+        global AirLabelHumid 
         global AirLabelLux
-        global AirLabelNoise
-        global AirLabelPM2
+        global AirLabelNoise 
+        global AirLabelPM2 
         global AirLabelPM10
-        global AirLabelPressure
+        global AirLabelPressure 
 
         child = ["Temperature", "Humidity", "Noise", "PM2.5", "PM10", "Atmospheric pressure", "Lux"]
 
@@ -292,35 +307,35 @@ def create_button():
         AirLabel = tk.Label(canvas2, text="PM2.5", bg="white", anchor="w", font=("Arial", 20), fg="green")
         AirLabel.place(relx=0.15, rely=0.45, relwidth=0.3, relheight=0.1)
 
-        AirLabel = tk.Label(canvas2, text="Atmospheric pressure (Kpa)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel = tk.Label(canvas2, text="Atmospheric Pressure (Kpa)", bg="white", anchor="w", font=("Arial", 20), fg="green")
         AirLabel.place(relx=0.48, rely=0.45, relwidth=0.5, relheight=0.1)
 
         AirLabel = tk.Label(canvas2, text="PM10", bg="white", anchor="w", font=("Arial", 20), fg="green")
         AirLabel.place(relx=0.157, rely=0.7, relwidth=0.3, relheight=0.1)
 
-        AirLabel = tk.Label(canvas2, text="Lux", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.68, rely=0.7, relwidth=0.3, relheight=0.1)
+        AirLabel = tk.Label(canvas2, text="Luminous Intensity (Lux)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel.place(relx=0.51, rely=0.7, relwidth=0.5, relheight=0.1)
 
-        AirLabelTemp = tk.Label(canvas2, text="24.89", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelTemp = tk.Label(canvas2, text=AirLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
         AirLabelTemp.place(relx=0.15, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        AirLabelNoise = tk.Label(canvas2, text="29.95", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelNoise = tk.Label(canvas2, text=AirLabelNoiseValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
         AirLabelNoise.place(relx=0.49, rely=0.29, relwidth=0.5, relheight=0.1)
 
-        AirLabelHumid = tk.Label(canvas2, text="67.23", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelHumid = tk.Label(canvas2, text=AirLabelHumidValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
         AirLabelHumid.place(relx=0.78, rely=0.29, relwidth=0.5, relheight=0.1)
         
-        AirLabelPM2 = tk.Label(canvas2, text="20.51", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelPM2 = tk.Label(canvas2, text=AirLabelPM2Value, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
         AirLabelPM2.place(relx=0.15, rely=0.54, relwidth=0.5, relheight=0.1)
 
-        AirLabelPressure = tk.Label(canvas2, text="101.325", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelPressure.place(relx=0.62, rely=0.54, relwidth=0.5, relheight=0.1)
+        AirLabelPressure = tk.Label(canvas2, text=AirLabelPressureValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelPressure.place(relx=0.65, rely=0.54, relwidth=0.5, relheight=0.1)
 
-        AirLabelPM10 = tk.Label(canvas2, text="20.51", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelPM10 = tk.Label(canvas2, text=AirLabelPM10Value, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
         AirLabelPM10.place(relx=0.15, rely=0.79, relwidth=0.5, relheight=0.1)
 
-        AirLabelLux = tk.Label(canvas2, text="114.0", bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelLux.place(relx=0.655, rely=0.79, relwidth=0.5, relheight=0.1)
+        AirLabelLux = tk.Label(canvas2, text=AirLabelLuxValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
+        AirLabelLux.place(relx=0.65, rely=0.79, relwidth=0.5, relheight=0.1)
 
 
         for widget in canvas4.winfo_children():
@@ -355,14 +370,14 @@ s.configure("Treeview", font=("Arial", 15, "bold"))
 
 # Create treeview columns
 tree.column("#0", width=0, stretch=tk.NO)  # Hidden ID column
-tree.column("Name", width=150, minwidth=50, anchor="center")
-tree.column("Age", width=150, minwidth=50, anchor="w")
-tree.column("cot3", width=150, minwidth=50, anchor="center")
+tree.column("Name", width=100, minwidth=50, anchor="center")
+tree.column("Age", width=200, minwidth=50, anchor="w")
+tree.column("cot3", width=100, minwidth=50, anchor="center")
 
 # Define column headings
 tree.heading("#0", text="", anchor=tk.W)
 tree.heading("Name", text="Time", anchor="center")
-tree.heading("Age", text="Station and Sensors", anchor="center")
+tree.heading("Age", text="Station/Sensors", anchor="center")
 tree.heading("cot3", text="Data of Sensors", anchor="center")
 tree.tag_configure('bg', background='#4A6984')
 tree.tag_configure('fg', foreground="white")
@@ -370,121 +385,159 @@ tree.tag_configure('fg', foreground="white")
 
 ######################## Update Data #####################
 
-def update_records():
-    while (True):
+def mqtt_callback(msg):
+
+    global WaterLabelTempValue
+    global WaterLabelSalValue
+    global WaterLabelPHValue
+    global WaterLabelORPValue
+    global WaterLabelECValue
+
+    global SoilLabelTempValue
+    global SoilLabelHumidValue
+    global SoilLabelPHValue 
+    global SoilLabelECValue 
+    global SoilLabelNValue 
+    global SoilLabelPValue  
+    global SoilLabelKValue  
+
+    global AirLabelTempValue
+    global AirLabelHumidValue
+    global AirLabelLuxValue
+    global AirLabelNoiseValue
+    global AirLabelPM2Value
+    global AirLabelPM10Value
+    global AirLabelPressureValue
+
+    line = msg.topic
+    parts = line.split("/")
+
+    data['NodeID'] = parts[0]
+    data['SensorID'] = parts[1]
+    data['value'] = msg.payload.decode('utf-8')
+
+    datachange = {"NodeID": "SoilStation"}
+
+    try:
         current_time = time.strftime("%H:%M:%S")
 
-        line = ser.readline().decode('utf-8')
-        AnalyzeData(line, data)
-        print(data['NodeID'], data['SensorID'], data['value'])
+        datachange['NodeID'] = data["NodeID"]
 
-        # time.sleep(3)
+        print(f"Received data and Analyzed ---> {data['NodeID']} - {data['SensorID']} - {data['value']}\n")
+
+        # time.sleep(2)
 
         if (data['NodeID'] == "WaterStation"):
             if (data['SensorID'] == "EC"):
                 tree.insert("", "0", values=(current_time, "WaterStation/EC", data['value']),tags=('fg', 'bg'))
-                WaterLabelEC.config(text = data['value'])
-                mqttObject.setPublishData("WaterStation/EC", data['value'])
-
+                WaterLabelECValue = data['value']
+                
             if (data['SensorID'] == "SALINITY"):
                 tree.insert("", "0", values=(current_time, "WaterStation/SALINITY", data['value']),tags=('fg', 'bg'))
-                WaterLabelSal.config(text = data['value'])
                 mqttObject.setPublishData("WaterStation/SALINITY", data['value'])
+                WaterLabelSalValue = data['value']
 
             if (data['SensorID'] == "PH"):
                 tree.insert("", "0", values=(current_time, "WaterStation/PH", data['value']),tags=('fg', 'bg'))
-                WaterLabelPH.config(text = data['value'])
-                mqttObject.setPublishData("WaterStation/PH", data['value'])
+                WaterLabelPHValue = data['value']
 
             if (data['SensorID'] == "ORP"):
                 tree.insert("", "0", values=(current_time, "WaterStation/ORP", data['value']),tags=('fg', 'bg'))
-                WaterLabelORP.config(text = data['value'])
-                mqttObject.setPublishData("WaterStation/ORP", data['value'])
+                WaterLabelORPValue = data['value']
 
             if (data['SensorID'] == "TEMP"):
                 tree.insert("", "0", values=(current_time, "WaterStation/TEMP", data['value']),tags=('fg', 'bg'))
-                WaterLabelTemp.config(text = data['value'])
-                mqttObject.setPublishData("WaterStation/TEMP", data['value'])
+                WaterLabelTempValue = data['value']
                 
-        
-        if (data['NodeID'] == "Soil-Station"):
+        if (data['NodeID'] == "SoilStation"):
             if (data['SensorID'] == "TEMP"):
                 tree.insert("", "0", values=(current_time, "SoilStation/TEMP", data['value']),tags=('fg', 'bg'))
-                SoilLabelTemp.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/TEMP", data['value'])
+                SoilLabelTempValue = data['value']
 
             if (data['SensorID'] == "HUMID"):
                 tree.insert("", "0", values=(current_time, "SoilStation/HUMID", data['value']),tags=('fg', 'bg'))
-                SoilLabelHumid.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/HUMID", data['value'])
+                SoilLabelHumidValue = data['value']
 
             if (data['SensorID'] == "EC"):
                 tree.insert("", "0", values=(current_time, "SoilStation/EC", data['value']),tags=('fg', 'bg'))
-                SoilLabelEC.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/EC", data['value'])
+                SoilLabelECValue = data['value']
 
             if (data['SensorID'] == "PH"):
                 tree.insert("", "0", values=(current_time, "SoilStation/PH", data['value']),tags=('fg', 'bg'))
-                SoilLabelPH.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/PH", data['value'])
+                SoilLabelPHValue = data['value']
 
             if (data['SensorID'] == "N"):
                 tree.insert("", "0", values=(current_time, "SoilStation/N", data['value']),tags=('fg', 'bg'))
-                SoilLabelN.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/N", data['value'])
+                SoilLabelNValue = data['value']
 
             if (data['SensorID'] == "P"):
                 tree.insert("", "0", values=(current_time, "SoilStation/P", data['value']),tags=('fg', 'bg'))
-                SoilLabelP.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/P", data['value'])
+                SoilLabelPValue = data['value']
 
             if (data['SensorID'] == "K"):
                 tree.insert("", "0", values=(current_time, "SoilStation/K", data['value']),tags=('fg', 'bg'))
-                SoilLabelK.config(text = data['value'])
-                mqttObject.setPublishData("SoilStation/K", data['value'])
+                SoilLabelKValue = data['value']
 
-
-        if (data['NodeID'] == "Air-Station"):
+        if (data['NodeID'] == "AirStation"):
             if (data['SensorID'] == "TEMP"):
                 tree.insert("", "0", values=(current_time, "AirStation/TEMP", data['value']),tags=('fg', 'bg'))
-                AirLabelTemp.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/TEMP", data['value'])
+                AirLabelTempValue = data['value']
 
             if (data['SensorID'] == "HUMID"):
                 tree.insert("", "0", values=(current_time, "AirStation/HUMID", data['value']),tags=('fg', 'bg'))
-                AirLabelHumid.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/HUMID", data['value'])
+                AirLabelHumidValue = data['value']
 
             if (data['SensorID'] == "LUX"):
                 tree.insert("", "0", values=(current_time, "AirStation/LUX", data['value']),tags=('fg', 'bg'))
-                AirLabelLux.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/LUX", data['value'])
+                AirLabelLuxValue = data['value']
 
-            if (data['SensorID'] == "Noise"):
+            if (data['SensorID'] == "NOISE"):
                 tree.insert("", "0", values=(current_time, "AirStation/NOISE", data['value']),tags=('fg', 'bg'))
-                AirLabelNoise.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/NOISE", data['value'])
+                AirLabelNoiseValue = data['value']
 
             if (data['SensorID'] == "PM2.5"):
-                tree.insert("", "0", values=(current_time, "AirStation/PM2", data['value']),tags=('fg', 'bg'))
-                AirLabelPM2.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/PM2", data['value'])
+                tree.insert("", "0", values=(current_time, "AirStation/PM2.5", data['value']),tags=('fg', 'bg'))
+                AirLabelPM2Value = data['value']
 
             if (data['SensorID'] == "PM10"):
                 tree.insert("", "0", values=(current_time, "AirStation/PM10", data['value']),tags=('fg', 'bg'))
-                AirLabelPM10.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/PM10", data['value'])
+                AirLabelPM10Value = data['value']
 
-            if (data['SensorID'] == "Atmospheric pressure"):
-                tree.insert("", "0", values=(current_time, "AirStation/PRESSURE", data['value']),tags=('fg', 'bg'))
-                AirLabelPressure.config(text = data['value'])
-                mqttObject.setPublishData("AirStation/PRESSURE", data['value'])
+            if (data['SensorID'] == "ATMOSPHERE"):
+                tree.insert("", "0", values=(current_time, "AirStation/ATMOSPHERE", data['value']),tags=('fg', 'bg'))
+                AirLabelPressureValue = data['value']
+    
+        if datachange["NodeID"] == "WaterStation":
+            WaterLabelEC.config(text = WaterLabelECValue)
+            WaterLabelSal.config(text = WaterLabelSalValue)
+            WaterLabelPH.config(text = WaterLabelPHValue)
+            WaterLabelORP.config(text = WaterLabelORPValue)
+            WaterLabelTemp.config(text = WaterLabelTempValue)
 
-        
-ccc = threading.Thread(target=update_records)
+        elif datachange["NodeID"] == "SoilStation":
+            SoilLabelTemp.config(text = SoilLabelTempValue)
+            SoilLabelHumid.config(text = SoilLabelHumidValue)
+            SoilLabelEC.config(text = SoilLabelECValue)
+            SoilLabelPH.config(text = SoilLabelPHValue)
+            SoilLabelN.config(text = SoilLabelNValue)
+            SoilLabelP.config(text = SoilLabelPValue)
+            SoilLabelK.config(text = SoilLabelKValue)
+
+        elif datachange["NodeID"] == "AirStation":
+            AirLabelTemp.config(text = AirLabelTempValue)
+            AirLabelHumid.config(text = AirLabelHumidValue)
+            AirLabelLux.config(text = AirLabelLuxValue)
+            AirLabelNoise.config(text = AirLabelNoiseValue)
+            AirLabelPM2.config(text = AirLabelPM2Value)
+            AirLabelPM10.config(text = AirLabelPM10Value)
+            AirLabelPressure.config(text = AirLabelPressureValue)
+
+    except Exception as e:
+        print(f"Error runtime: {e}")
+
+ccc = threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback))
 ccc.start()
-tree.place(relx=0.1, rely=0.21, relwidth=0.8, relheight=0.77)
-
+tree.place(relx=0.1, rely=0.19, relwidth=0.8, relheight=0.78)
 
 #################### Create Radio buttons #####################
 
@@ -528,28 +581,36 @@ for i in dataset:
     y_offset += 0.2
 
 
-######################## Draw a line chart ########################3
-def mqtt_callback(msg):
-    print("Main.py  ---", msg)
+######################## Draw a line chart #########################
+# def mqtt_callback(msg):
+#     global combobox
+#     print(f"Main.py  --- Topic: {msg.topic} - Value: {msg.payload.decode('utf-8')}")
+#     print(f"Main.py  --- {msg}\n")
 
-    data = json.loads(msg)
-    # Create some sample data for the line chart
-    x = [1, 2, 3, 4, 5]
-    y = [2, 4, 6, 8, 10]
+#     selected_value_Combobox = combobox.get()
+#     if (selected_value != ""):
 
-    # Create a matplotlib figure
-    fig = plt.figure(figsize=(5, 4))
-    ax = fig.add_subplot(111)
-    ax.plot(x, y) # Plot the line chart
-    ax.set_title("A Simple Line Chart")
-    ax.set_xlabel("X-axis")
-    ax.set_ylabel("Y-axis")
+#         if (temp_combobox != selected_value_Combobox):
+#             temp_combobox = selected_value_Combobox
+        
+#             x = [1, 2, 3, 4]
+#             y = [1, 1, 1, 8, 1]
 
-    # Create a canvas widget to display the figure
-    canvas = FigureCanvasTkAgg(fig, master=canvas4)
-    canvas.draw()
-    canvas.get_tk_widget().place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+#             x.append(msg.payload.decode('utf-8'))
 
-mqttObject.setRecvCallBack(mqtt_callback)
+#             # Create a matplotlib figure
+#             fig = plt.figure(figsize=(5, 4))
+#             ax = fig.add_subplot(111)
+#             ax.plot(x, y) # Plot the line chart
+#             # ax.set_title("A Simple Line Chart")
+#             ax.set_xlabel("X-axis")
+#             ax.set_ylabel("Y-axis")
+
+#             # Create a canvas widget to display the figure
+#             canvas = FigureCanvasTkAgg(fig, master=canvas4)
+#             canvas.draw()
+#             canvas.get_tk_widget().place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+
+# threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
 
 root.mainloop()

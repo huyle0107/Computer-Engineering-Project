@@ -16,18 +16,27 @@ class NodeSensor:
         self.buffer = [0] * 10
         self.next = None
         
-    def setup_buffer(self,data):
+    def setup_buffer(self, data):
         if self.size < 10:
             self.buffer[self.size] = data
             self.size += 1
         if self.size == 10:
             # Calculate mean
-            mean = sum(self.buffer) / self.size
+            sum1 = 0.0
+            for value in self.buffer: 
+                sum1 = sum1 + "{:.2f}".format(float(value))
+            mean = "{:.2f}".format(float(sum1 / int(self.size)))
+
             # Calculate varriance
-            variance = sum((x - mean) ** 2 for x in self.buffer) / self.size
+            sum2 = 0.0
+            for x in self.buffer:
+                sum2 = sum2 + ("{:.2f}".format((float(x)) - mean) ** 2)
+            variance = "{:.2f}".format(float(sum2 / int(self.size)))
+            
             self.size = 0
+
             if variance < 5:
-                self.current_data = mean
+                self.current_data = "{:.2f}".format(float(mean))
         return self.current_data
 
 
@@ -53,7 +62,7 @@ class Node:
                 current_node.node = Node()
                 current_node.node.ID = nodeID
                 current_node.node.sensor = NodeSensor(sensorID, data)
-                return  data
+                return data
             current_node = current_node.node
         
         if current_node:
