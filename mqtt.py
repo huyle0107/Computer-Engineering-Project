@@ -61,7 +61,7 @@ class MQTTHelper:
         print("Subscribed to Topic!!!\n")
 
     def mqtt_recv_message(self, client, userdata, message):
-        print(f"Received: --- Topic: {message.topic} - Value: {message.payload.decode('utf-8')}\n")
+        print(f"Received -----> Topic: {message.topic} ------ Value: {message.payload.decode('utf-8')}\n")
         self.recvCallBack(message)
 
     def __init__(self):

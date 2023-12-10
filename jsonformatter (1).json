@@ -1,0 +1,804 @@
+{
+  "result": true,
+  "data": [
+    {
+      "id": 4,
+      "created_at": "2023-11-12T08:57:37.218757+00:00",
+      "name": "WaterStation/PH",
+      "node_id": 2,
+      "current_value": 0,
+      "all_values": []
+    },
+    {
+      "id": 2,
+      "created_at": "2023-11-12T08:57:35.604989+00:00",
+      "name": "WaterStation/SALINITY",
+      "node_id": 2,
+      "current_value": 0,
+      "all_values": []
+    },
+    {
+      "id": 3,
+      "created_at": "2023-11-12T08:57:36.419927+00:00",
+      "name": "WaterStation/ORP",
+      "node_id": 2,
+      "current_value": 0,
+      "all_values": []
+    },
+    {
+      "id": 15,
+      "created_at": "2023-11-21T15:49:04.941547+00:00",
+      "name": "SoilStation/EC",
+      "node_id": 3,
+      "current_value": 0,
+      "all_values": [
+        {
+          "id": 92,
+          "created_at": "2023-11-26T16:20:11.648907+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 83,
+          "created_at": "2023-11-26T16:16:20.694602+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 67,
+          "created_at": "2023-11-26T16:14:34.026834+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 58,
+          "created_at": "2023-11-26T16:12:58.398906+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 31,
+          "created_at": "2023-11-26T16:04:24.641941+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 28,
+          "created_at": "2023-11-26T16:04:03.374364+00:00",
+          "sensor_id": 15,
+          "value": 0
+        },
+        {
+          "id": 14,
+          "created_at": "2023-11-26T16:01:38.192314+00:00",
+          "sensor_id": 15,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "created_at": "2023-11-21T15:49:51.891178+00:00",
+      "name": "SoilStation/N",
+      "node_id": 3,
+      "current_value": 0,
+      "all_values": [
+        {
+          "id": 96,
+          "created_at": "2023-11-26T16:20:11.75242+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 82,
+          "created_at": "2023-11-26T16:16:20.632675+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 61,
+          "created_at": "2023-11-26T16:14:33.09115+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 47,
+          "created_at": "2023-11-26T16:12:57.91867+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 44,
+          "created_at": "2023-11-26T16:04:25.596307+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 18,
+          "created_at": "2023-11-26T16:04:02.415483+00:00",
+          "sensor_id": 17,
+          "value": 0
+        },
+        {
+          "id": 4,
+          "created_at": "2023-11-26T16:01:37.644576+00:00",
+          "sensor_id": 17,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "created_at": "2023-11-12T08:58:23.86236+00:00",
+      "name": "AirStation/TEMP",
+      "node_id": 4,
+      "current_value": 22,
+      "all_values": [
+        {
+          "id": 93,
+          "created_at": "2023-11-26T16:20:11.698311+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 84,
+          "created_at": "2023-11-26T16:16:20.700543+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 75,
+          "created_at": "2023-11-26T16:14:35.045182+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 55,
+          "created_at": "2023-11-26T16:12:58.342449+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 43,
+          "created_at": "2023-11-26T16:04:25.53239+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 29,
+          "created_at": "2023-11-26T16:04:03.389142+00:00",
+          "sensor_id": 6,
+          "value": 22
+        },
+        {
+          "id": 9,
+          "created_at": "2023-11-26T16:01:37.727922+00:00",
+          "sensor_id": 6,
+          "value": 22
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "created_at": "2023-11-12T08:58:24.394696+00:00",
+      "name": "AirStation/HUMID",
+      "node_id": 4,
+      "current_value": 59,
+      "all_values": [
+        {
+          "id": 98,
+          "created_at": "2023-11-26T16:20:11.813891+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 80,
+          "created_at": "2023-11-26T16:16:20.335072+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 64,
+          "created_at": "2023-11-26T16:14:33.553723+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 54,
+          "created_at": "2023-11-26T16:12:58.300071+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 45,
+          "created_at": "2023-11-26T16:04:25.599196+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 27,
+          "created_at": "2023-11-26T16:04:03.295863+00:00",
+          "sensor_id": 7,
+          "value": 59
+        },
+        {
+          "id": 8,
+          "created_at": "2023-11-26T16:01:37.724143+00:00",
+          "sensor_id": 7,
+          "value": 59
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "created_at": "2023-11-12T08:59:15.648841+00:00",
+      "name": "SoilStation/HUMID",
+      "node_id": 3,
+      "current_value": 1,
+      "all_values": [
+        {
+          "id": 91,
+          "created_at": "2023-11-26T16:20:11.617043+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 87,
+          "created_at": "2023-11-26T16:16:20.750642+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 71,
+          "created_at": "2023-11-26T16:14:34.598614+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 59,
+          "created_at": "2023-11-26T16:12:58.399297+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 33,
+          "created_at": "2023-11-26T16:04:24.658191+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 20,
+          "created_at": "2023-11-26T16:04:02.873909+00:00",
+          "sensor_id": 14,
+          "value": 1
+        },
+        {
+          "id": 5,
+          "created_at": "2023-11-26T16:01:37.703965+00:00",
+          "sensor_id": 14,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "created_at": "2023-11-21T15:50:11.827674+00:00",
+      "name": "SoilStation/K",
+      "node_id": 3,
+      "current_value": 0,
+      "all_values": [
+        {
+          "id": 94,
+          "created_at": "2023-11-26T16:20:11.711709+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 81,
+          "created_at": "2023-11-26T16:16:20.382256+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 69,
+          "created_at": "2023-11-26T16:14:34.263361+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 53,
+          "created_at": "2023-11-26T16:12:58.1658+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 35,
+          "created_at": "2023-11-26T16:04:25.071315+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 24,
+          "created_at": "2023-11-26T16:04:02.911119+00:00",
+          "sensor_id": 19,
+          "value": 0
+        },
+        {
+          "id": 6,
+          "created_at": "2023-11-26T16:01:37.718295+00:00",
+          "sensor_id": 19,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "created_at": "2023-11-12T08:58:26.593178+00:00",
+      "name": "AirStation/NOISE",
+      "node_id": 4,
+      "current_value": 59,
+      "all_values": [
+        {
+          "id": 99,
+          "created_at": "2023-11-26T16:20:11.830875+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 88,
+          "created_at": "2023-11-26T16:16:20.803399+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 65,
+          "created_at": "2023-11-26T16:14:33.601818+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 56,
+          "created_at": "2023-11-26T16:12:58.348896+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 36,
+          "created_at": "2023-11-26T16:04:25.078024+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 17,
+          "created_at": "2023-11-26T16:04:02.056087+00:00",
+          "sensor_id": 9,
+          "value": 59
+        },
+        {
+          "id": 3,
+          "created_at": "2023-11-26T16:01:37.268526+00:00",
+          "sensor_id": 9,
+          "value": 59
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "created_at": "2023-11-12T08:57:38.019734+00:00",
+      "name": "WaterStation/TEMP",
+      "node_id": 2,
+      "current_value": 30.25,
+      "all_values": [
+        {
+          "id": 100,
+          "created_at": "2023-11-26T16:20:11.878507+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 86,
+          "created_at": "2023-11-26T16:16:20.750434+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 74,
+          "created_at": "2023-11-26T16:14:34.926085+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 52,
+          "created_at": "2023-11-26T16:12:58.123137+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 40,
+          "created_at": "2023-11-26T16:04:25.188197+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 23,
+          "created_at": "2023-11-26T16:04:02.90784+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        },
+        {
+          "id": 12,
+          "created_at": "2023-11-26T16:01:38.123082+00:00",
+          "sensor_id": 5,
+          "value": 30.25
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "created_at": "2023-11-12T08:58:27.632207+00:00",
+      "name": "AirStation/PM2.5",
+      "node_id": 4,
+      "current_value": 36,
+      "all_values": [
+        {
+          "id": 101,
+          "created_at": "2023-11-26T16:20:11.890493+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 85,
+          "created_at": "2023-11-26T16:16:20.732484+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 62,
+          "created_at": "2023-11-26T16:14:33.1138+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 57,
+          "created_at": "2023-11-26T16:12:58.380197+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 34,
+          "created_at": "2023-11-26T16:04:25.053039+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 16,
+          "created_at": "2023-11-26T16:04:01.94479+00:00",
+          "sensor_id": 10,
+          "value": 36
+        },
+        {
+          "id": 15,
+          "created_at": "2023-11-26T16:01:38.310715+00:00",
+          "sensor_id": 10,
+          "value": 36
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "created_at": "2023-11-12T08:58:28.285122+00:00",
+      "name": "SoilStation/TEMP",
+      "node_id": 3,
+      "current_value": 24,
+      "all_values": [
+        {
+          "id": 97,
+          "created_at": "2023-11-26T16:20:11.805438+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 89,
+          "created_at": "2023-11-26T16:16:20.826219+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 66,
+          "created_at": "2023-11-26T16:14:33.782215+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 49,
+          "created_at": "2023-11-26T16:12:57.933788+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 41,
+          "created_at": "2023-11-26T16:04:25.261682+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 19,
+          "created_at": "2023-11-26T16:04:02.731183+00:00",
+          "sensor_id": 12,
+          "value": 24
+        },
+        {
+          "id": 13,
+          "created_at": "2023-11-26T16:01:38.192029+00:00",
+          "sensor_id": 12,
+          "value": 24
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "created_at": "2023-11-12T08:59:14.764959+00:00",
+      "name": "SoilStation/TEMP",
+      "node_id": 3,
+      "current_value": 24,
+      "all_values": []
+    },
+    {
+      "id": 18,
+      "created_at": "2023-11-21T15:50:02.232724+00:00",
+      "name": "SoilStation/P",
+      "node_id": 3,
+      "current_value": 0,
+      "all_values": [
+        {
+          "id": 102,
+          "created_at": "2023-11-26T16:20:12.080888+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 77,
+          "created_at": "2023-11-26T16:16:19.97765+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 72,
+          "created_at": "2023-11-26T16:14:34.675496+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 48,
+          "created_at": "2023-11-26T16:12:57.921917+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 42,
+          "created_at": "2023-11-26T16:04:25.528507+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 26,
+          "created_at": "2023-11-26T16:04:03.285667+00:00",
+          "sensor_id": 18,
+          "value": 0
+        },
+        {
+          "id": 10,
+          "created_at": "2023-11-26T16:01:37.773734+00:00",
+          "sensor_id": 18,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "created_at": "2023-11-12T08:58:25.526727+00:00",
+      "name": "AirStation/LUX",
+      "node_id": 4,
+      "current_value": 179,
+      "all_values": [
+        {
+          "id": 95,
+          "created_at": "2023-11-26T16:20:11.736886+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 76,
+          "created_at": "2023-11-26T16:16:19.921326+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 68,
+          "created_at": "2023-11-26T16:14:34.157234+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 60,
+          "created_at": "2023-11-26T16:12:58.483992+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 37,
+          "created_at": "2023-11-26T16:04:25.111477+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 22,
+          "created_at": "2023-11-26T16:04:02.890718+00:00",
+          "sensor_id": 8,
+          "value": 179
+        },
+        {
+          "id": 7,
+          "created_at": "2023-11-26T16:01:37.721084+00:00",
+          "sensor_id": 8,
+          "value": 179
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "created_at": "2023-11-21T15:49:41.825086+00:00",
+      "name": "SoilStation/PH",
+      "node_id": 3,
+      "current_value": 7,
+      "all_values": [
+        {
+          "id": 103,
+          "created_at": "2023-11-26T16:20:12.169903+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 90,
+          "created_at": "2023-11-26T16:16:20.866459+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 73,
+          "created_at": "2023-11-26T16:14:34.86299+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 50,
+          "created_at": "2023-11-26T16:12:57.935124+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 32,
+          "created_at": "2023-11-26T16:04:24.656018+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 30,
+          "created_at": "2023-11-26T16:04:04.471165+00:00",
+          "sensor_id": 16,
+          "value": 7
+        },
+        {
+          "id": 1,
+          "created_at": "2023-11-26T16:01:37.227422+00:00",
+          "sensor_id": 16,
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "created_at": "2023-11-12T08:58:27.983829+00:00",
+      "name": "AirStation/ATMOSPHERE",
+      "node_id": 4,
+      "current_value": 100,
+      "all_values": [
+        {
+          "id": 105,
+          "created_at": "2023-11-26T16:20:12.97502+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 78,
+          "created_at": "2023-11-26T16:16:20.19585+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 63,
+          "created_at": "2023-11-26T16:14:33.549759+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 51,
+          "created_at": "2023-11-26T16:12:58.034435+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 38,
+          "created_at": "2023-11-26T16:04:25.119895+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 25,
+          "created_at": "2023-11-26T16:04:02.981943+00:00",
+          "sensor_id": 11,
+          "value": 100
+        },
+        {
+          "id": 2,
+          "created_at": "2023-11-26T16:01:37.257923+00:00",
+          "sensor_id": 11,
+          "value": 100
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "created_at": "2023-11-12T08:57:35.207775+00:00",
+      "name": "WaterStation/EC",
+      "node_id": 2,
+      "current_value": 41,
+      "all_values": [
+        {
+          "id": 104,
+          "created_at": "2023-11-26T16:20:12.578553+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 79,
+          "created_at": "2023-11-26T16:16:20.293663+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 70,
+          "created_at": "2023-11-26T16:14:34.379626+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 46,
+          "created_at": "2023-11-26T16:12:57.903894+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 39,
+          "created_at": "2023-11-26T16:04:25.148944+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 21,
+          "created_at": "2023-11-26T16:04:02.889573+00:00",
+          "sensor_id": 1,
+          "value": 41
+        },
+        {
+          "id": 11,
+          "created_at": "2023-11-26T16:01:37.80893+00:00",
+          "sensor_id": 1,
+          "value": 41
+        }
+      ]
+    }
+  ],
+  "message": "Success",
+  "error": ""
+}

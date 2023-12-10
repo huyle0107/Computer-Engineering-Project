@@ -3,16 +3,21 @@ import threading
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import ttk
+import requests
+from datetime import datetime
 from mqtt import *
+from collections import defaultdict
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-################## Open port ############################
+########################################## Open port ####################################################
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
 
+global combobox
 global giatri
 global thread_running
+
 thread_running = True
 
 def toggle_fullscreen(event = None):
@@ -25,7 +30,7 @@ def toggle_fullscreen(event = None):
         root.geometry("1024x600")  
 
 
-################################### bounded the canvas ##################################
+########################################################### bounded the canvas ##########################################################
 
 def create_rounded_frame(canvas, x0, y0, x1, y1, radius, color):
     canvas.create_arc(x0, y0, x0 + 2 * radius, y0 + 2 * radius, start=90, extent=90, fill=color, outline=color)
@@ -52,7 +57,7 @@ def get_all_values():
         value = tree.item(item, "values")[2]
         values.append((topic, value))
 
-############################## Set for each frame of canvas ##############################
+###################################################### Set for each frame of canvas ######################################################
 
 root = tk.Tk()
 # Bind the F11 key to toggle full-screen
@@ -97,7 +102,7 @@ canvas3.bind("<Configure>", lambda event, canvas=canvas3: resize_rounded_frame(c
 canvas4.bind("<Configure>", lambda event, canvas=canvas4: resize_rounded_frame(canvas, event))
 
 
-########################### Declare variables ################################
+################################################### Declare variables ########################################################
 
 global selected_value2
 global thread
@@ -124,6 +129,8 @@ AirLabelPM2 = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 
 AirLabelPM10 = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
 AirLabelPressure = tk.Label(canvas2, text="", bg="white", anchor="w", font=("Arial", 20))
 
+labelText = tk.Label(canvas4, text="", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+
 WaterLabelTempValue = "24.89"
 WaterLabelSalValue = "468.79"
 WaterLabelPHValue = "6.72"
@@ -146,20 +153,24 @@ AirLabelPM2Value = "20.51"
 AirLabelPM10Value = "20.51"
 AirLabelPressureValue = "101.32"
 
-global combobox
 temp_combobox = ""
 
 thread = None
 mqttObject = MQTTHelper()
 
-########################### Create for each station ################################
+################################################### Create for each station ########################################################
 def create_button():
     for widget in canvas2.winfo_children():
         widget.destroy()
+
     global giatri
     global combobox
+    global labelText
+
     giatri = selected_value.get()
     selected_value2 = tk.StringVar(value="NULL")
+
+    ################################################ Water Station ################################################
 
     if giatri == "Water Station":
 
@@ -207,11 +218,13 @@ def create_button():
         for widget in canvas4.winfo_children():
             widget.destroy()
 
-        labelW = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelW.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
+        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
 
         combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.085, relwidth=0.28, relheight=0.075)
+        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
+
+    ################################################ Soil Station ########################################################################
 
     elif giatri == "Soil Station":
 
@@ -221,7 +234,7 @@ def create_button():
         global SoilLabelEC 
         global SoilLabelN 
         global SoilLabelP 
-        global SoilLabelK 
+        global SoilLabelK
 
         child = ["Temperature", "Humidity", "PH", "EC", "N", "P", "K"]
 
@@ -273,12 +286,13 @@ def create_button():
         for widget in canvas4.winfo_children():
             widget.destroy()
 
-        labelS = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelS.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
+        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
 
         combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.085, relwidth=0.28, relheight=0.075)
+        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
 
+    ################################################ Air Station ########################################################################
 
     elif giatri == "Air Station":
 
@@ -341,12 +355,13 @@ def create_button():
         for widget in canvas4.winfo_children():
             widget.destroy()
 
-        labelA = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelA.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
+        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
 
         combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.085, relwidth=0.28, relheight=0.075)
+        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
 
+    ################################################ Draft ########################################################################
 
     elif giatri =="D":
         radiobutton1canvas2 = tk.Radiobutton(canvas2, text="E", variable=selected_value2, value="E", background="white",activebackground="white")
@@ -356,8 +371,9 @@ def create_button():
         radiobutton3canvas2 = tk.Radiobutton(canvas2, text="G", variable=selected_value2, value="G", background="white", activebackground="white")
         radiobutton3canvas2.place(relx=0.1, rely=0.4, relwidth=0.2, relheight=0.1)
 
+    combobox.bind("<<ComboboxSelected>>", drawChart)
 
-#################### Create a Treeview widget ########################
+######################################## Create a Treeview widget ##################################################
 
 tree = ttk.Treeview(canvas3,show='headings')
 tree["columns"] = ("Name", "Age","cot3")  # Define column names
@@ -383,7 +399,7 @@ tree.tag_configure('bg', background='#4A6984')
 tree.tag_configure('fg', foreground="white")
 
 
-######################## Update Data #####################
+################################################ Update Data #############################################
 
 def mqtt_callback(msg):
 
@@ -425,7 +441,7 @@ def mqtt_callback(msg):
 
         print(f"Received data and Analyzed ---> {data['NodeID']} - {data['SensorID']} - {data['value']}\n")
 
-        # time.sleep(2)
+        ################################################ Water Station ########################################################################
 
         if (data['NodeID'] == "WaterStation"):
             if (data['SensorID'] == "EC"):
@@ -448,6 +464,8 @@ def mqtt_callback(msg):
             if (data['SensorID'] == "TEMP"):
                 tree.insert("", "0", values=(current_time, "WaterStation/TEMP", data['value']),tags=('fg', 'bg'))
                 WaterLabelTempValue = data['value']
+
+        ################################################ Soil Station ################################################
                 
         if (data['NodeID'] == "SoilStation"):
             if (data['SensorID'] == "TEMP"):
@@ -478,6 +496,8 @@ def mqtt_callback(msg):
                 tree.insert("", "0", values=(current_time, "SoilStation/K", data['value']),tags=('fg', 'bg'))
                 SoilLabelKValue = data['value']
 
+        ################################################ Air Station ########################################################################
+
         if (data['NodeID'] == "AirStation"):
             if (data['SensorID'] == "TEMP"):
                 tree.insert("", "0", values=(current_time, "AirStation/TEMP", data['value']),tags=('fg', 'bg'))
@@ -506,6 +526,8 @@ def mqtt_callback(msg):
             if (data['SensorID'] == "ATMOSPHERE"):
                 tree.insert("", "0", values=(current_time, "AirStation/ATMOSPHERE", data['value']),tags=('fg', 'bg'))
                 AirLabelPressureValue = data['value']
+
+        ################################################ Store Value ########################################################################        
     
         if datachange["NodeID"] == "WaterStation":
             WaterLabelEC.config(text = WaterLabelECValue)
@@ -535,8 +557,7 @@ def mqtt_callback(msg):
     except Exception as e:
         print(f"Error runtime: {e}")
 
-ccc = threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback))
-ccc.start()
+threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
 tree.place(relx=0.1, rely=0.19, relwidth=0.8, relheight=0.78)
 
 #################### Create Radio buttons #####################
@@ -580,37 +601,114 @@ for i in dataset:
 
     y_offset += 0.2
 
+########################### Draw a line chart #############################
+def drawChart(event):
+    global combobox
+    global temp_combobox
+    global giatri
+    global labelText
 
-######################## Draw a line chart #########################
-# def mqtt_callback(msg):
-#     global combobox
-#     print(f"Main.py  --- Topic: {msg.topic} - Value: {msg.payload.decode('utf-8')}")
-#     print(f"Main.py  --- {msg}\n")
+    selected_value_Combobox = combobox.get()
 
-#     selected_value_Combobox = combobox.get()
-#     if (selected_value != ""):
+    if (selected_value_Combobox == "Temperature"):
+        selected_value_Combobox = "TEMP"
+    if (selected_value_Combobox == "Humidity"):
+        selected_value_Combobox = "HUMID"
 
-#         if (temp_combobox != selected_value_Combobox):
-#             temp_combobox = selected_value_Combobox
-        
-#             x = [1, 2, 3, 4]
-#             y = [1, 1, 1, 8, 1]
+    current_nodeId = giatri.replace(" ", "") + "/" + selected_value_Combobox.upper()
 
-#             x.append(msg.payload.decode('utf-8'))
+    temp_value = ""
 
-#             # Create a matplotlib figure
-#             fig = plt.figure(figsize=(5, 4))
-#             ax = fig.add_subplot(111)
-#             ax.plot(x, y) # Plot the line chart
-#             # ax.set_title("A Simple Line Chart")
-#             ax.set_xlabel("X-axis")
-#             ax.set_ylabel("Y-axis")
+    x = list()
+    y = list()
+    x_axis = list()
+    y_axis = list()
 
-#             # Create a canvas widget to display the figure
-#             canvas = FigureCanvasTkAgg(fig, master=canvas4)
-#             canvas.draw()
-#             canvas.get_tk_widget().place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    current_day = datetime.now().strftime("%Y-%m-%d")
 
-# threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
+    print(f"Current to draw chart: {current_nodeId}")
+
+    if (current_nodeId != ""):
+
+            value = requests.get("http://167.172.86.42:4000/api/v1/supabase/sensors")
+
+            ValueAll = value.json()["data"]
+
+            for s in ValueAll:
+                station_id = s["name"]
+                old_value = s["all_values"]
+
+                print("station_id: ", station_id)
+    
+                if station_id == current_nodeId:    
+                    print("Time: ", s["created_at"])
+                    print("Id: ", s["name"]) 
+                    for s in old_value:
+                        # Ensure the fractional seconds part has at least 6 digits
+                        if len(s["created_at"]) < 32:
+                            # Split the timestamp into the main part and the timezone offset
+                            main_part, timezone_offset = s["created_at"].rsplit('+', 1)
+
+                            # Ensure the fractional seconds part has at least 6 digits
+                            # Ensure the fractional seconds part has exactly 6 digits
+                            main_part_parts = main_part.split('.')
+                            if len(main_part_parts) > 1:
+                                main_part = f"{main_part_parts[0]}.{main_part_parts[1]:0<6}"
+
+                            # Combine the main part and the timezone offset
+                            new_timestamp_string = main_part + '+' + timezone_offset
+                            s["created_at"] = new_timestamp_string
+                        
+                        # print("time: ", s["created_at"])
+
+                        try:
+                            if current_day == datetime.fromisoformat(s["created_at"]).strftime("%Y-%m-%d"):
+                                Time = datetime.fromisoformat(s["created_at"]).strftime("%H:%M")
+                                # print(Time)
+
+                                # print("Value: ", s["value"])
+
+                                if temp_value != s["value"]:
+                                    x.append(Time)
+                                    y.append(s["value"])
+                        except ValueError as e:
+                            print(f"Error: {e}")      
+
+            # Convert timestamps to hours
+            hours = [f"{int(time.split(':')[0]):02d}:00" for time in x]
+
+            # Create a defaultdict to accumulate values for each hour
+            hourly_values = defaultdict(list)
+
+            # Accumulate values for each hour
+            for i in range(len(x)):
+                hour = hours[i]
+                value = y[i]
+                hourly_values[hour].append(value)
+
+            # Calculate the average for each hour
+            hourly_average = {hour: sum(values) / len(values) for hour, values in hourly_values.items()}
+
+            # Print the result
+            for hour, average in hourly_average.items():
+                x_axis.append(hour)
+                y_axis.append(average)
+
+            # Create a matplotlib figure
+            x_axis = list(reversed(x_axis))
+            y_axis = list(reversed(y_axis))
+            print(x_axis)
+            print(y_axis)
+            fig, ax = plt.subplots(figsize=(3, 4))  # Adjust the figsize as needed
+            ax.plot(x_axis, y_axis) 
+            # ax.set_xlabel("Time")
+            ax.set_ylabel("Value")
+
+            # Create a canvas widget to display the figure
+            canvas = FigureCanvasTkAgg(fig, master=canvas4)
+            canvas.draw()
+            canvas.get_tk_widget().place(relx=-0.04, rely=0.08, relwidth=1.14, relheight=0.86)
+            labelText.lift()
+            combobox.lift()
 
 root.mainloop()

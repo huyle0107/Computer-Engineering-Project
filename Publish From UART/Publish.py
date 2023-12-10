@@ -1,9 +1,10 @@
+import re
 import paho.mqtt.client as mqtt
 import serial
 import time
 from ReadUart import AnalyzeData
 
-MQTT_SERVER = "178.128.28.238"
+MQTT_SERVER = "167.172.86.42"
 MQTT_PORT = 1883
 MQTT_USERNAME = "ce_capstone"
 MQTT_PASSWORD = "ce_capstone_2023"
@@ -79,6 +80,7 @@ while True:
     current_time = time.strftime("%H:%M:%S")
 
     line = ser.readline().decode('utf-8')
+
     AnalyzeData(line, data)
 
     print(f"\nPublish data to server ---> {data['NodeID']} - {data['SensorID']} - {data['value']}")
@@ -142,3 +144,126 @@ while True:
 
         if (data['SensorID'] == "ATMOSPHERE"):
             mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
+
+# while True:
+#     current_time = time.strftime("%H:%M:%S")
+
+#     line = ser.readline().decode('utf-8')
+
+#     print(F"{line}\n")
+
+#     SOIL_PH = re.search(r"SOIL PH\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_TEMP = re.search(r"SOIL TEMP\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_HUMID = re.search(r"SOIL HUMIDITY\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_N = re.search(r"Soil_N\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_P = re.search(r"Soil_P\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_K = re.search(r"Soil_K\s*=\s*(-?\d+\.\d+)", line)
+#     SOIL_EC = re.search(r"Soil_EC\s*=\s*(-?\d+\.\d+)", line)
+
+#     AIR_TEMP = re.search(r"AIR TEMP\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_HUMID = re.search(r"AIR HUMIDITY\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_NOISE = re.search(r"AIR NOISE\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_PM10 = re.search(r"AIR PM10\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_PM2 = re.search(r"AIR PM2.5\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_ASMOSPHERE = re.search(r"AIR ATMOSPHERE\s*=\s*(-?\d+\.\d+)", line)
+#     AIR_LUX = re.search(r"LUX\s*=\s*(-?\d+\.\d+)", line)
+
+#     if SOIL_PH:
+#         dataNow = SOIL_PH.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/PH", data['value'], retain=True)
+
+#     if SOIL_TEMP:
+#         dataNow = SOIL_TEMP.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/TEMP", data['value'], retain=True)
+
+#     if SOIL_HUMID:
+#         dataNow = SOIL_HUMID.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/HUMID", data['value'], retain=True)
+
+#     if SOIL_N:
+#         dataNow = SOIL_N.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/N", data['value'], retain=True)
+
+#     if SOIL_P:
+#         dataNow = SOIL_P.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/P", data['value'], retain=True)
+
+#     if SOIL_K:
+#         dataNow = SOIL_K.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/K", data['value'], retain=True)
+
+#     if SOIL_EC:
+#         dataNow = SOIL_EC.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("SoilStation/EC", data['value'], retain=True)
+
+#     if AIR_TEMP:
+#         dataNow = AIR_TEMP.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/TEMP", data['value'], retain=True)
+
+#     if AIR_HUMID:
+#         dataNow = AIR_HUMID.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/HUMID", data['value'], retain=True)
+
+#     if AIR_NOISE:
+#         dataNow = AIR_NOISE.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/NOISE", data['value'], retain=True)
+
+#     if AIR_PM10:
+#         dataNow = AIR_PM10.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/PM10", data['value'], retain=True)
+
+#     if AIR_PM2:
+#         dataNow = AIR_PM2.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/PM2.5", data['value'], retain=True)
+
+#     if AIR_ASMOSPHERE:
+#         dataNow = AIR_ASMOSPHERE.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
+
+#     if AIR_LUX:
+#         dataNow = AIR_LUX.group(0).split('=')
+#         data['SensorID'] = dataNow[0].strip()
+#         data['value'] = dataNow[1].strip()
+#         print(f"\n---------------------------------Publish data to server --->  {data['SensorID']} - {data['value']}")
+#         mqttClient.publish("AirStation/LUX", data['value'], retain=True)
+
+
