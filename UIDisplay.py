@@ -2,7 +2,7 @@ import time
 import threading
 import matplotlib.pyplot as plt
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 import requests
 from datetime import datetime
 from mqtt import *
@@ -60,6 +60,10 @@ def get_all_values():
 ###################################################### Set for each frame of canvas ######################################################
 
 root = tk.Tk()
+# Set the icon using PhotoImage
+icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
+root.tk.call('wm', 'iconphoto', root._w, icon)
+
 # Bind the F11 key to toggle full-screen
 root.bind("<F11>", toggle_fullscreen)
 
@@ -69,7 +73,8 @@ root.bind("<Escape>", toggle_fullscreen)
 # Initial window size (optional)
 root.geometry("1024x600")
 
-root.title("Resizable Rounded Frame")
+# Set the title of the window
+root.title("Aggriculture Application")
 root.config(background="blue")
 
 canvas1 = tk.Canvas(root, background="blue", highlightthickness=0)

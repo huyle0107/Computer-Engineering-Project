@@ -1,1 +1,1 @@
-            # ax.set_xlabel("Time")
+root.iconbitmap("E:\Documents\Thesis Proposal\Source code\icon_app.png")
