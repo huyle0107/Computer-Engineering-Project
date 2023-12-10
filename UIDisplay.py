@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import PhotoImage, ttk
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from mqtt import *
 from collections import defaultdict
 
@@ -622,8 +622,6 @@ def drawChart(event):
 
     current_nodeId = giatri.replace(" ", "") + "/" + selected_value_Combobox.upper()
 
-    temp_value = ""
-
     x = list()
     y = list()
     x_axis = list()
@@ -643,7 +641,7 @@ def drawChart(event):
                 station_id = s["name"]
                 old_value = s["all_values"]
 
-                print("station_id: ", station_id)
+                # print("station_id: ", station_id)
     
                 if station_id == current_nodeId:    
                     print("Time: ", s["created_at"])
@@ -667,15 +665,21 @@ def drawChart(event):
                         # print("time: ", s["created_at"])
 
                         try:
-                            if current_day == datetime.fromisoformat(s["created_at"]).strftime("%Y-%m-%d"):
-                                Time = datetime.fromisoformat(s["created_at"]).strftime("%H:%M")
+                            timestamp = datetime.fromisoformat(s["created_at"])
+
+                            # Convert to Vietnam time (UTC+7)
+                            vietnam_timezone = timezone(timedelta(hours=7))
+                            vietnam_time = timestamp.astimezone(vietnam_timezone)
+                            
+                            if current_day == vietnam_time.strftime("%Y-%m-%d"):
+                                Time = vietnam_time.strftime("%H:%M")
                                 # print(Time)
 
                                 # print("Value: ", s["value"])
 
-                                if temp_value != s["value"]:
-                                    x.append(Time)
-                                    y.append(s["value"])
+                                x.append(Time)
+                                y.append(s["value"])
+                                
                         except ValueError as e:
                             print(f"Error: {e}")      
 
@@ -702,8 +706,8 @@ def drawChart(event):
             # Create a matplotlib figure
             x_axis = list(reversed(x_axis))
             y_axis = list(reversed(y_axis))
-            print(x_axis)
-            print(y_axis)
+            print("Hour: ", x_axis)
+            print("Average value: ", y_axis)
             fig, ax = plt.subplots(figsize=(3, 4))  # Adjust the figsize as needed
             ax.plot(x_axis, y_axis) 
             # ax.set_xlabel("Time")
