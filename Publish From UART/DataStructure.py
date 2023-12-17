@@ -24,19 +24,22 @@ class NodeSensor:
             # Calculate mean
             sum1 = 0.0
             for value in self.buffer: 
-                sum1 = sum1 + "{:.2f}".format(float(value))
-            mean = "{:.2f}".format(float(sum1 / int(self.size)))
+                sum1 = sum1 + float(value)
+            mean = sum1 / int(self.size)
 
             # Calculate varriance
             sum2 = 0.0
             for x in self.buffer:
-                sum2 = sum2 + ("{:.2f}".format((float(x)) - mean) ** 2)
-            variance = "{:.2f}".format(float(sum2 / int(self.size)))
+                sum2 = sum2 + ((float(x) - mean) ** 2)
+            variance = sum2 / int(self.size)
             
             self.size = 0
 
             if variance < 5:
-                self.current_data = "{:.2f}".format(float(mean))
+                self.current_data = mean
+
+            self.current_data = '{:.2f}'.format(self.current_data)
+            
         return self.current_data
 
 

@@ -619,13 +619,14 @@ def drawChart(event):
         selected_value_Combobox = "TEMP"
     if (selected_value_Combobox == "Humidity"):
         selected_value_Combobox = "HUMID"
+    if (selected_value_Combobox.upper() == "ATMOSPHERIC PRESSURE"):
+        selected_value_Combobox = "ATMOSPHERE"
 
     current_nodeId = giatri.replace(" ", "") + "/" + selected_value_Combobox.upper()
 
     x = list()
     y = list()
-    x_axis = list()
-    y_axis = list()
+    current_day_time = list()
 
     current_day = datetime.now().strftime("%Y-%m-%d")
 
@@ -641,11 +642,11 @@ def drawChart(event):
                 station_id = s["name"]
                 old_value = s["all_values"]
 
-                # print("station_id: ", station_id)
+                print("station_id: ", station_id)
     
                 if station_id == current_nodeId:    
-                    print("Time: ", s["created_at"])
-                    print("Id: ", s["name"]) 
+                    # print("Time: ", s["created_at"])
+                    # print("Id: ", s["name"]) 
                     for s in old_value:
                         # Ensure the fractional seconds part has at least 6 digits
                         if len(s["created_at"]) < 32:
@@ -670,33 +671,40 @@ def drawChart(event):
                             # Convert to Vietnam time (UTC+7)
                             vietnam_timezone = timezone(timedelta(hours=7))
                             vietnam_time = timestamp.astimezone(vietnam_timezone)
-                            
-                            if current_day == vietnam_time.strftime("%Y-%m-%d"):
-                                Time = vietnam_time.strftime("%H:%M")
-                                # print(Time)
 
-                                # print("Value: ", s["value"])
+                            Time = vietnam_time.strftime("%H:%M")
 
-                                x.append(Time)
-                                y.append(s["value"])
+                            x.append(Time)
+                            y.append(s["value"])
+                            current_day_time.append(Time + "\n" + vietnam_time.strftime("%d-%m"))
                                 
                         except ValueError as e:
                             print(f"Error: {e}")      
 
+            x_axis = list(reversed(x))
+            y_axis = list(reversed(y))
+            current_day_time = list(reversed(current_day_time))
+
             # Convert timestamps to hours
-            hours = [f"{int(time.split(':')[0]):02d}:00" for time in x]
+            hours = [f"{int(time.split(':')[0]):02d}:00" for time in x_axis]
+
+            # print(hours)
+            # print(f"Current: {current_day_time}")
 
             # Create a defaultdict to accumulate values for each hour
             hourly_values = defaultdict(list)
 
             # Accumulate values for each hour
-            for i in range(len(x)):
-                hour = hours[i]
-                value = y[i]
+            for i in range(len(x_axis)):
+                hour = hours[i] + "\n"+ current_day_time[i].split('\n')[1]
+                value = y_axis[i]
                 hourly_values[hour].append(value)
-
+            
             # Calculate the average for each hour
             hourly_average = {hour: sum(values) / len(values) for hour, values in hourly_values.items()}
+
+            x_axis = list()
+            y_axis = list()
 
             # Print the result
             for hour, average in hourly_average.items():
@@ -704,19 +712,24 @@ def drawChart(event):
                 y_axis.append(average)
 
             # Create a matplotlib figure
-            x_axis = list(reversed(x_axis))
-            y_axis = list(reversed(y_axis))
+            x_axis = list(x_axis)[-14:]
+            y_axis = list(y_axis)[-14:]
+
             print("Hour: ", x_axis)
             print("Average value: ", y_axis)
-            fig, ax = plt.subplots(figsize=(3, 4))  # Adjust the figsize as needed
+
+            fig, ax = plt.subplots(figsize=(6, 4))  
+            # Adjust the figsize as needed
             ax.plot(x_axis, y_axis) 
+
             # ax.set_xlabel("Time")
             ax.set_ylabel("Value")
+
 
             # Create a canvas widget to display the figure
             canvas = FigureCanvasTkAgg(fig, master=canvas4)
             canvas.draw()
-            canvas.get_tk_widget().place(relx=-0.04, rely=0.08, relwidth=1.14, relheight=0.86)
+            canvas.get_tk_widget().place(relx=-0.04, rely=0.055, relwidth=1.14, relheight=0.88)
             labelText.lift()
             combobox.lift()
 
