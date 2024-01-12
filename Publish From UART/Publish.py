@@ -78,7 +78,6 @@ mqttClient.on_message = mqtt_recv_message
 
 mqttClient.loop_start()
 
-
 while True:
     try:
         current_time = time.strftime("%H:%M:%S")

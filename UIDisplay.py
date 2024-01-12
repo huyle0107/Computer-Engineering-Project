@@ -97,9 +97,9 @@ stringLabel1.place(relx=0.05, rely=0.05, relwidth=0.8, relheight=0.1)
 stringLabel2 = tk.Label(canvas2, text=f'{o2}', bg="white", anchor="w")
 stringLabel2.place(relx=0.45, rely=0.05, relwidth=0.5, relheight=0.1)
 stringLabel3 = tk.Label(canvas3, text=f'{o3}', bg="white", anchor="w", font=("Arial", 22, "bold"))
-stringLabel3.place(relx=0.05, rely=0.05, relwidth=0.8, relheight=0.1)
+stringLabel3.place(relx=0.05, rely=0.02, relwidth=0.8, relheight=0.17)
 stringLabel4 = tk.Label(canvas4, text=f'{o4}', bg="white", anchor="w",  font=("Arial", 25, "bold"))
-stringLabel4.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.15)
+stringLabel4.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
 canvas1.bind("<Configure>", lambda event, canvas=canvas1: resize_rounded_frame(canvas, event))
 canvas2.bind("<Configure>", lambda event, canvas=canvas2: resize_rounded_frame(canvas, event))
@@ -194,44 +194,44 @@ def create_button():
         stringLabel2 = tk.Label(canvas2, text="Water Station", bg="white", anchor="center", font=("Arial", 25, "bold"), fg="blue")
         stringLabel2.place(relx=0.29, rely=0.05, relwidth=0.5, relheight=0.1)
 
-        WaterLabel = tk.Label(canvas2, text="Temperature (℃)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.1, rely=0.2, relwidth=0.3, relheight=0.1)
+        WaterLabel = tk.Label(canvas2, text="Temperature(℃)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
+        WaterLabel.place(relx=0.08, rely=0.2, relwidth=0.43, relheight=0.17)
 
         WaterLabel = tk.Label(canvas2, text="Salanity", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.49, rely=0.2, relwidth=0.15, relheight=0.1)
+        WaterLabel.place(relx=0.695, rely=0.2, relwidth=0.23, relheight=0.17)
+
+        WaterLabel = tk.Label(canvas2, text="ORP(ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
+        WaterLabel.place(relx=0.08, rely=0.5, relwidth=0.3, relheight=0.17)
 
         WaterLabel = tk.Label(canvas2, text="PH", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.8, rely=0.2, relwidth=0.1, relheight=0.1)
+        WaterLabel.place(relx=0.49, rely=0.5, relwidth=0.1, relheight=0.17)
 
-        WaterLabel = tk.Label(canvas2, text="ORP (ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.2, rely=0.5, relwidth=0.3, relheight=0.1)
-
-        WaterLabel = tk.Label(canvas2, text="EC (ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.68, rely=0.5, relwidth=0.3, relheight=0.1)
+        WaterLabel = tk.Label(canvas2, text="EC(ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
+        WaterLabel.place(relx=0.69, rely=0.5, relwidth=0.3, relheight=0.17)
 
         WaterLabelTemp = tk.Label(canvas2, text=WaterLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelTemp.place(relx=0.19, rely=0.29, relwidth=0.5, relheight=0.1)
+        WaterLabelTemp.place(relx=0.2, rely=0.35, relwidth=0.5, relheight=0.1)
 
         WaterLabelSal = tk.Label(canvas2, text=WaterLabelSalValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelSal.place(relx=0.49, rely=0.29, relwidth=0.5, relheight=0.1)
-
-        WaterLabelPH = tk.Label(canvas2, text=WaterLabelPHValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelPH.place(relx=0.785, rely=0.29, relwidth=0.5, relheight=0.1)
+        WaterLabelSal.place(relx=0.696, rely=0.35, relwidth=0.55, relheight=0.1)
         
         WaterLabelORP = tk.Label(canvas2, text=WaterLabelORPValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelORP.place(relx=0.24, rely=0.59, relwidth=0.5, relheight=0.1)
+        WaterLabelORP.place(relx=0.12, rely=0.65, relwidth=0.5, relheight=0.1)
+
+        WaterLabelPH = tk.Label(canvas2, text=WaterLabelPHValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
+        WaterLabelPH.place(relx=0.465, rely=0.65, relwidth=0.5, relheight=0.1)
 
         WaterLabelEC = tk.Label(canvas2, text=WaterLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
-        WaterLabelEC.place(relx=0.715, rely=0.59, relwidth=0.5, relheight=0.1)
+        WaterLabelEC.place(relx=0.73, rely=0.65, relwidth=0.5, relheight=0.1)
 
         for widget in canvas4.winfo_children():
             widget.destroy()
 
         labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
+        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
+        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Soil Station ########################################################################
 
@@ -250,56 +250,56 @@ def create_button():
         stringLabel2 = tk.Label(canvas2, text="Soil Station", bg="white", anchor="center", font=("Arial", 25, "bold"), fg="red")
         stringLabel2.place(relx=0.29, rely=0.05, relwidth=0.5, relheight=0.1)
 
-        SoilLabel = tk.Label(canvas2, text="Temperature (℃)", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.15, rely=0.2, relwidth=0.3, relheight=0.1)
+        SoilLabel = tk.Label(canvas2, text="Temperature(℃)", bg="white", anchor="w", font=("Arial", 20), fg="red")
+        SoilLabel.place(relx=0.08, rely=0.17, relwidth=0.43, relheight=0.17)
 
-        SoilLabel = tk.Label(canvas2, text="Humidity (%)", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.65, rely=0.2, relwidth=0.3, relheight=0.1)
+        SoilLabel = tk.Label(canvas2, text="Humidity(%)", bg="white", anchor="w", font=("Arial", 20), fg="red")
+        SoilLabel.place(relx=0.65, rely=0.17, relwidth=0.43, relheight=0.17)
 
         SoilLabel = tk.Label(canvas2, text="PH", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.265, rely=0.45, relwidth=0.1, relheight=0.1)
+        SoilLabel.place(relx=0.24, rely=0.42, relwidth=0.1, relheight=0.17)
 
-        SoilLabel = tk.Label(canvas2, text="EC (ppm)", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.68, rely=0.45, relwidth=0.3, relheight=0.1)
+        SoilLabel = tk.Label(canvas2, text="EC(ppm)", bg="white", anchor="w", font=("Arial", 20), fg="red")
+        SoilLabel.place(relx=0.695, rely=0.42, relwidth=0.3, relheight=0.17)
 
         SoilLabel = tk.Label(canvas2, text="N", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.28, rely=0.7, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.26, rely=0.67, relwidth=0.3, relheight=0.17)
 
         SoilLabel = tk.Label(canvas2, text="P", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.515, rely=0.7, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.515, rely=0.67, relwidth=0.3, relheight=0.17)
 
         SoilLabel = tk.Label(canvas2, text="K", bg="white", anchor="w", font=("Arial", 20), fg="red")
-        SoilLabel.place(relx=0.75, rely=0.7, relwidth=0.3, relheight=0.1)
+        SoilLabel.place(relx=0.78, rely=0.67, relwidth=0.3, relheight=0.17)
 
         SoilLabelTemp = tk.Label(canvas2, text=SoilLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelTemp.place(relx=0.233, rely=0.29, relwidth=0.5, relheight=0.1)
+        SoilLabelTemp.place(relx=0.2, rely=0.32, relwidth=0.4, relheight=0.1)
 
         SoilLabelHumid = tk.Label(canvas2, text=SoilLabelHumidValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelHumid.place(relx=0.7, rely=0.29, relwidth=0.5, relheight=0.1)
+        SoilLabelHumid.place(relx=0.72, rely=0.32, relwidth=0.5, relheight=0.1)
 
         SoilLabelPH = tk.Label(canvas2, text=SoilLabelPHValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelPH.place(relx=0.248, rely=0.54, relwidth=0.5, relheight=0.1)
+        SoilLabelPH.place(relx=0.215, rely=0.56, relwidth=0.5, relheight=0.1)
         
         SoilLabelEC = tk.Label(canvas2, text=SoilLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelEC.place(relx=0.72, rely=0.54, relwidth=0.5, relheight=0.1)
+        SoilLabelEC.place(relx=0.74, rely=0.56, relwidth=0.5, relheight=0.1)
 
         SoilLabelN = tk.Label(canvas2, text=SoilLabelNValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelN.place(relx=0.248, rely=0.79, relwidth=0.5, relheight=0.1)
+        SoilLabelN.place(relx=0.215, rely=0.81, relwidth=0.5, relheight=0.1)
 
         SoilLabelP = tk.Label(canvas2, text=SoilLabelPValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelP.place(relx=0.488, rely=0.79, relwidth=0.5, relheight=0.1)
+        SoilLabelP.place(relx=0.465, rely=0.81, relwidth=0.5, relheight=0.1)
 
         SoilLabelK = tk.Label(canvas2, text=SoilLabelKValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
-        SoilLabelK.place(relx=0.72, rely=0.79, relwidth=0.5, relheight=0.1)
+        SoilLabelK.place(relx=0.74, rely=0.81, relwidth=0.5, relheight=0.1)
 
         for widget in canvas4.winfo_children():
             widget.destroy()
 
         labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
+        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
+        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Air Station ########################################################################
 
@@ -318,57 +318,57 @@ def create_button():
         stringLabel2 = tk.Label(canvas2, text="Air Station", bg="white", anchor="center", font=("Arial", 25, "bold"), fg="green")
         stringLabel2.place(relx=0.29, rely=0.05, relwidth=0.5, relheight=0.1)
 
-        AirLabel = tk.Label(canvas2, text="Temperature (℃)", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.07, rely=0.2, relwidth=0.3, relheight=0.1)
+        AirLabel = tk.Label(canvas2, text="Temperature(℃)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel.place(relx=0.013, rely=0.17, relwidth=0.43, relheight=0.17)
 
         AirLabel = tk.Label(canvas2, text="Noise", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.5, rely=0.2, relwidth=0.2, relheight=0.1)
+        AirLabel.place(relx=0.49, rely=0.17, relwidth=0.43, relheight=0.17)
 
-        AirLabel = tk.Label(canvas2, text="Humidity (%)", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.73, rely=0.2, relwidth=0.3, relheight=0.1)
+        AirLabel = tk.Label(canvas2, text="Humidity(%)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel.place(relx=0.684, rely=0.17, relwidth=0.43, relheight=0.17)
 
         AirLabel = tk.Label(canvas2, text="PM2.5", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.15, rely=0.45, relwidth=0.3, relheight=0.1)
+        AirLabel.place(relx=0.05, rely=0.42, relwidth=0.3, relheight=0.17)
 
-        AirLabel = tk.Label(canvas2, text="Atmospheric Pressure (Kpa)", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.48, rely=0.45, relwidth=0.5, relheight=0.1)
+        AirLabel = tk.Label(canvas2, text="Atmospheric Pressure(Kpa)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel.place(relx=0.305, rely=0.42, relwidth=0.7, relheight=0.17)
 
         AirLabel = tk.Label(canvas2, text="PM10", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.157, rely=0.7, relwidth=0.3, relheight=0.1)
+        AirLabel.place(relx=0.058, rely=0.67, relwidth=0.3, relheight=0.17)
 
-        AirLabel = tk.Label(canvas2, text="Luminous Intensity (Lux)", bg="white", anchor="w", font=("Arial", 20), fg="green")
-        AirLabel.place(relx=0.51, rely=0.7, relwidth=0.5, relheight=0.1)
+        AirLabel = tk.Label(canvas2, text="Luminous Intensity(Lux)", bg="white", anchor="w", font=("Arial", 20), fg="green")
+        AirLabel.place(relx=0.35, rely=0.67, relwidth=0.7, relheight=0.17)
 
         AirLabelTemp = tk.Label(canvas2, text=AirLabelTempValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelTemp.place(relx=0.15, rely=0.29, relwidth=0.5, relheight=0.1)
+        AirLabelTemp.place(relx=0.13, rely=0.32, relwidth=0.5, relheight=0.1)
 
         AirLabelNoise = tk.Label(canvas2, text=AirLabelNoiseValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelNoise.place(relx=0.49, rely=0.29, relwidth=0.5, relheight=0.1)
+        AirLabelNoise.place(relx=0.48, rely=0.32, relwidth=0.5, relheight=0.1)
 
         AirLabelHumid = tk.Label(canvas2, text=AirLabelHumidValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelHumid.place(relx=0.78, rely=0.29, relwidth=0.5, relheight=0.1)
+        AirLabelHumid.place(relx=0.755, rely=0.32, relwidth=0.5, relheight=0.1)
         
         AirLabelPM2 = tk.Label(canvas2, text=AirLabelPM2Value, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelPM2.place(relx=0.15, rely=0.54, relwidth=0.5, relheight=0.1)
+        AirLabelPM2.place(relx=0.05, rely=0.56, relwidth=0.5, relheight=0.1)
 
         AirLabelPressure = tk.Label(canvas2, text=AirLabelPressureValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelPressure.place(relx=0.65, rely=0.54, relwidth=0.5, relheight=0.1)
+        AirLabelPressure.place(relx=0.55, rely=0.56, relwidth=0.5, relheight=0.1)
 
         AirLabelPM10 = tk.Label(canvas2, text=AirLabelPM10Value, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelPM10.place(relx=0.15, rely=0.79, relwidth=0.5, relheight=0.1)
+        AirLabelPM10.place(relx=0.05, rely=0.81, relwidth=0.5, relheight=0.1)
 
         AirLabelLux = tk.Label(canvas2, text=AirLabelLuxValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="green")
-        AirLabelLux.place(relx=0.65, rely=0.79, relwidth=0.5, relheight=0.1)
+        AirLabelLux.place(relx=0.55, rely=0.81, relwidth=0.5, relheight=0.1)
 
 
         for widget in canvas4.winfo_children():
             widget.destroy()
 
         labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.05, relwidth=0.27, relheight=0.11)
+        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 23))
-        combobox.place(relx=0.28, rely=0.063, relwidth=0.28, relheight=0.075)
+        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Draft ########################################################################
 
@@ -396,14 +396,14 @@ s.configure("Treeview", font=("Arial", 15, "bold"))
 # Create treeview columns
 tree.column("#0", width=0, stretch=tk.NO)  # Hidden ID column
 tree.column("Name", width=100, minwidth=50, anchor="center")
-tree.column("Age", width=200, minwidth=50, anchor="w")
-tree.column("cot3", width=100, minwidth=50, anchor="center")
+tree.column("Age", width=180, minwidth=50, anchor="w")
+tree.column("cot3", width=120, minwidth=50, anchor="center")
 
 # Define column headings
 tree.heading("#0", text="", anchor=tk.W)
 tree.heading("Name", text="Time", anchor="center")
 tree.heading("Age", text="Station/Sensors", anchor="center")
-tree.heading("cot3", text="Data of Sensors", anchor="center")
+tree.heading("cot3", text="Values", anchor="center")
 tree.tag_configure('bg', background='#4A6984')
 tree.tag_configure('fg', foreground="white")
 
@@ -571,9 +571,9 @@ try:
 except Exception as e:
     print("Can not start threading MQTT!!!!!!\n")
 
-tree.place(relx=0.1, rely=0.19, relwidth=0.8, relheight=0.78)
+tree.place(relx=0.02, rely=0.19, relwidth=0.96, relheight=0.78)
 
-#################### Create Radio buttons #####################
+############################# Create Radio buttons ###################################
 
 selected_value = tk.StringVar(value="A")
 def remove_border(event):
@@ -607,7 +607,7 @@ for i in dataset:
         command=create_button, style="TRadiobutton",
         compound="left", image=transparent_image
     )
-    radiobutton1.place(relx=0.05, rely=y_offset + 0.2, relwidth=0.4, relheight=0.1)
+    radiobutton1.place(relx=0.05, rely=y_offset + 0.2, relwidth=0.7, relheight=0.1)
 
     # Bind the event to remove focus and prevent the border
     radiobutton1.bind("<FocusIn>", remove_border)
@@ -642,103 +642,103 @@ def drawChart(event):
 
     if (current_nodeId != ""):
 
-            value = requests.get("http://167.172.86.42:4000/api/v1/supabase/sensors")
+        value = requests.get("http://167.172.86.42:4000/api/v1/supabase/sensors")
 
-            ValueAll = value.json()["data"]
+        ValueAll = value.json()["data"]
 
-            for s in ValueAll:
-                station_id = s["name"]
-                old_value = s["all_values"]
+        for s in ValueAll:
+            station_id = s["name"]
+            old_value = s["all_values"]
 
-                print("station_id: ", station_id)
-    
-                if station_id == current_nodeId:    
-                    # print("Time: ", s["created_at"])
-                    # print("Id: ", s["name"]) 
-                    for s in old_value:
+            print("station_id: ", station_id)
+
+            if station_id == current_nodeId:    
+                # print("Time: ", s["created_at"])
+                # print("Id: ", s["name"]) 
+                for s in old_value:
+                    # Ensure the fractional seconds part has at least 6 digits
+                    if len(s["created_at"]) < 32:
+                        # Split the timestamp into the main part and the timezone offset
+                        main_part, timezone_offset = s["created_at"].rsplit('+', 1)
+
                         # Ensure the fractional seconds part has at least 6 digits
-                        if len(s["created_at"]) < 32:
-                            # Split the timestamp into the main part and the timezone offset
-                            main_part, timezone_offset = s["created_at"].rsplit('+', 1)
+                        # Ensure the fractional seconds part has exactly 6 digits
+                        main_part_parts = main_part.split('.')
+                        if len(main_part_parts) > 1:
+                            main_part = f"{main_part_parts[0]}.{main_part_parts[1]:0<6}"
 
-                            # Ensure the fractional seconds part has at least 6 digits
-                            # Ensure the fractional seconds part has exactly 6 digits
-                            main_part_parts = main_part.split('.')
-                            if len(main_part_parts) > 1:
-                                main_part = f"{main_part_parts[0]}.{main_part_parts[1]:0<6}"
+                        # Combine the main part and the timezone offset
+                        new_timestamp_string = main_part + '+' + timezone_offset
+                        s["created_at"] = new_timestamp_string
+                    
+                    # print("time: ", s["created_at"])
 
-                            # Combine the main part and the timezone offset
-                            new_timestamp_string = main_part + '+' + timezone_offset
-                            s["created_at"] = new_timestamp_string
-                        
-                        # print("time: ", s["created_at"])
+                    try:
+                        timestamp = datetime.fromisoformat(s["created_at"])
 
-                        try:
-                            timestamp = datetime.fromisoformat(s["created_at"])
+                        # Convert to Vietnam time (UTC+7)
+                        vietnam_timezone = timezone(timedelta(hours=7))
+                        vietnam_time = timestamp.astimezone(vietnam_timezone)
 
-                            # Convert to Vietnam time (UTC+7)
-                            vietnam_timezone = timezone(timedelta(hours=7))
-                            vietnam_time = timestamp.astimezone(vietnam_timezone)
+                        Time = vietnam_time.strftime("%H:%M")
 
-                            Time = vietnam_time.strftime("%H:%M")
+                        x.append(Time)
+                        y.append(s["value"])
+                        current_day_time.append(Time + "\n" + vietnam_time.strftime("%d-%m"))
+                            
+                    except ValueError as e:
+                        print(f"Error: {e}")      
 
-                            x.append(Time)
-                            y.append(s["value"])
-                            current_day_time.append(Time + "\n" + vietnam_time.strftime("%d-%m"))
-                                
-                        except ValueError as e:
-                            print(f"Error: {e}")      
+        x_axis = list(reversed(x))
+        y_axis = list(reversed(y))
+        current_day_time = list(reversed(current_day_time))
 
-            x_axis = list(reversed(x))
-            y_axis = list(reversed(y))
-            current_day_time = list(reversed(current_day_time))
+        # Convert timestamps to hours
+        hours = [f"{int(time.split(':')[0]):02d}:00" for time in x_axis]
 
-            # Convert timestamps to hours
-            hours = [f"{int(time.split(':')[0]):02d}:00" for time in x_axis]
+        # print(hours)
+        # print(f"Current: {current_day_time}")
 
-            # print(hours)
-            # print(f"Current: {current_day_time}")
+        # Create a defaultdict to accumulate values for each hour
+        hourly_values = defaultdict(list)
 
-            # Create a defaultdict to accumulate values for each hour
-            hourly_values = defaultdict(list)
+        # Accumulate values for each hour
+        for i in range(len(x_axis)):
+            hour = hours[i] + "\n"+ current_day_time[i].split('\n')[1]
+            value = y_axis[i]
+            hourly_values[hour].append(value)
+        
+        # Calculate the average for each hour
+        hourly_average = {hour: sum(values) / len(values) for hour, values in hourly_values.items()}
 
-            # Accumulate values for each hour
-            for i in range(len(x_axis)):
-                hour = hours[i] + "\n"+ current_day_time[i].split('\n')[1]
-                value = y_axis[i]
-                hourly_values[hour].append(value)
-            
-            # Calculate the average for each hour
-            hourly_average = {hour: sum(values) / len(values) for hour, values in hourly_values.items()}
+        x_axis = list()
+        y_axis = list()
 
-            x_axis = list()
-            y_axis = list()
+        # Print the result
+        for hour, average in hourly_average.items():
+            x_axis.append(hour)
+            y_axis.append(average)
 
-            # Print the result
-            for hour, average in hourly_average.items():
-                x_axis.append(hour)
-                y_axis.append(average)
+        # Create a matplotlib figure
+        x_axis = list(x_axis)[-14:]
+        y_axis = list(y_axis)[-14:]
 
-            # Create a matplotlib figure
-            x_axis = list(x_axis)[-14:]
-            y_axis = list(y_axis)[-14:]
+        print("Hour: ", x_axis)
+        print("Average value: ", y_axis)
 
-            print("Hour: ", x_axis)
-            print("Average value: ", y_axis)
+        fig, ax = plt.subplots(figsize=(6, 4))  
+        # Adjust the figsize as needed
+        ax.plot(x_axis, y_axis) 
 
-            fig, ax = plt.subplots(figsize=(6, 4))  
-            # Adjust the figsize as needed
-            ax.plot(x_axis, y_axis) 
-
-            # ax.set_xlabel("Time")
-            ax.set_ylabel("Value")
+        # ax.set_xlabel("Time")
+        ax.set_ylabel("Value")
 
 
-            # Create a canvas widget to display the figure
-            canvas = FigureCanvasTkAgg(fig, master=canvas4)
-            canvas.draw()
-            canvas.get_tk_widget().place(relx=-0.04, rely=0.055, relwidth=1.14, relheight=0.88)
-            labelText.lift()
-            combobox.lift()
+        # Create a canvas widget to display the figure
+        canvas = FigureCanvasTkAgg(fig, master=canvas4)
+        canvas.draw()
+        canvas.get_tk_widget().place(relx=-0.04, rely=0.055, relwidth=1.14, relheight=0.88)
+        labelText.lift()
+        combobox.lift()
 
 root.mainloop()
