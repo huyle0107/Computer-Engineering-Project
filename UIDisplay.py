@@ -182,13 +182,6 @@ def create_button():
     for widget in canvas2.winfo_children():
         widget.destroy()
 
-    # Xóa toàn bộ widget con trên canvas2 bằng cách destroy canvas2
-    canvas2.destroy()
-
-    canvas2 = tk.Canvas(root, background="blue", highlightthickness=0)
-    canvas2.place(relx=0.51, rely=0.01, relwidth=0.48, relheight=0.48)
-    canvas2.bind("<Configure>", lambda event, canvas=canvas2: resize_rounded_frame(canvas, event))
-
     ################################################ Water Station ################################################
 
     if giatri == "Water Station":
