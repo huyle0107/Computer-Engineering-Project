@@ -72,7 +72,8 @@ root.bind("<F11>", toggle_fullscreen)
 root.bind("<Escape>", toggle_fullscreen)
 
 # Initial window size (optional)
-root.geometry("1024x600")
+# root.geometry("1024x600")
+root.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}+0+0")
 
 # Set the title of the window
 root.title("Aggriculture Application")
