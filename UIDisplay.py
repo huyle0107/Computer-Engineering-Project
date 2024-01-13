@@ -61,8 +61,8 @@ def get_all_values():
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-# icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
-icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
+icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
+# icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
 # Bind the F11 key to toggle full-screen
@@ -170,9 +170,6 @@ except Exception as e:
 
 ################################################### Create for each station ########################################################
 def create_button():
-    for widget in canvas2.winfo_children():
-        widget.destroy()
-
     global giatri
     global combobox
     global labelText
@@ -181,6 +178,16 @@ def create_button():
     selected_value2 = tk.StringVar(value="NULL")
 
     child = list()
+
+    for widget in canvas2.winfo_children():
+        widget.destroy()
+
+    # Xóa toàn bộ widget con trên canvas2 bằng cách destroy canvas2
+    canvas2.destroy()
+
+    canvas2 = tk.Canvas(root, background="blue", highlightthickness=0)
+    canvas2.place(relx=0.51, rely=0.01, relwidth=0.48, relheight=0.48)
+    canvas2.bind("<Configure>", lambda event, canvas=canvas2: resize_rounded_frame(canvas, event))
 
     ################################################ Water Station ################################################
 
@@ -578,7 +585,7 @@ def mqtt_callback(msg):
 try:
     threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
 except Exception as e:
-    print("Can not start threading MQTT!!!!!!\n")
+    print("\nCan not start threading MQTT!!!!!!\n")
 
 tree.place(relx=0.02, rely=0.19, relwidth=0.96, relheight=0.78)
 
@@ -643,13 +650,13 @@ def drawChart(event):
     y = list()
     current_day_time = list()
 
-    current_day = datetime.now().strftime("%Y-%m-%d")
+    current_day = datetime.now().strftime("%d-%m")
 
     print(f"Current to draw chart: {current_nodeId}")
 
     if (current_nodeId != ""):
 
-        value = requests.get("http://167.172.86.42:4000/api/v1/supabase/sensors")
+        value = requests.get("http://44.211.64.46:4000/api/v1/supabase/sensors")
 
         ValueAll = value.json()["data"]
 
@@ -689,6 +696,7 @@ def drawChart(event):
 
                         Time = vietnam_time.strftime("%H:%M")
 
+                        # if (vietnam_time.strftime("%d-%m") == current_day):
                         x.append(Time)
                         y.append(s["value"])
                         current_day_time.append(Time + "\n" + vietnam_time.strftime("%d-%m"))
@@ -727,24 +735,24 @@ def drawChart(event):
             y_axis.append(average)
 
         # Create a matplotlib figure
-        x_axis = list(x_axis)[-14:]
-        y_axis = list(y_axis)[-14:]
+        x_axis = list(x_axis)[-9:]
+        y_axis = list(y_axis)[-9:]
 
         print("Hour: ", x_axis)
         print("Average value: ", y_axis)
 
-        fig, ax = plt.subplots(figsize=(6, 4))  
+        fig, ax = plt.subplots(figsize=(10, 8))  
         # Adjust the figsize as needed
         ax.plot(x_axis, y_axis) 
 
         # ax.set_xlabel("Time")
-        ax.set_ylabel("Value")
+        ax.set_ylabel("Values")
 
 
         # Create a canvas widget to display the figure
         canvas = FigureCanvasTkAgg(fig, master=canvas4)
         canvas.draw()
-        canvas.get_tk_widget().place(relx=-0.04, rely=0.055, relwidth=1.14, relheight=0.88)
+        canvas.get_tk_widget().place(relx=-0.01, rely=0.1, relwidth=1.1, relheight=0.8)
         labelText.lift()
         combobox.lift()
 
