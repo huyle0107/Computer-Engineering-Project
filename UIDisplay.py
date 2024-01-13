@@ -61,7 +61,7 @@ def get_all_values():
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
+# icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
 icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
@@ -227,8 +227,8 @@ def create_button():
         WaterLabelEC = tk.Label(canvas2, text=WaterLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
         WaterLabelEC.place(relx=0.73, rely=0.65, relwidth=0.5, relheight=0.1)
 
-        # for widget in canvas4.winfo_children():
-        #     widget.destroy()
+        for widget in canvas4.winfo_children():
+            widget.destroy()
 
         # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
         # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
@@ -295,8 +295,8 @@ def create_button():
         SoilLabelK = tk.Label(canvas2, text=SoilLabelKValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
         SoilLabelK.place(relx=0.74, rely=0.81, relwidth=0.5, relheight=0.1)
 
-        # for widget in canvas4.winfo_children():
-        #     widget.destroy()
+        for widget in canvas4.winfo_children():
+            widget.destroy()
 
         # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
         # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
@@ -364,8 +364,8 @@ def create_button():
         AirLabelLux.place(relx=0.55, rely=0.81, relwidth=0.5, relheight=0.1)
 
 
-        # for widget in canvas4.winfo_children():
-        #     widget.destroy()
+        for widget in canvas4.winfo_children():
+            widget.destroy()
 
         # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
         # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
