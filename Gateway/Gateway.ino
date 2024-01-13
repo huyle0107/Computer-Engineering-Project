@@ -35,6 +35,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 
 // Callback when data is received
 void OnDataRecv(const uint8_t *mac, const uint8_t *data, int len) {
+  Serial1.println("Receive");
   char receivedData[len + 1];
   memcpy(receivedData, data, len);
   receivedData[len] = '\0';

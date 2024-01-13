@@ -24,6 +24,7 @@ void setup() {
 
   WiFi.mode(WIFI_STA);
   delay(3000); //delay for set-up M5
+  Serial1.println("1");
 
   if (esp_now_init() != ESP_OK) {
       Serial1.println("ESPNow initialization failed!");
@@ -33,6 +34,7 @@ void setup() {
       Serial1.println("ESPNow initialization completed!");
       delay(100);
   }
+  Serial1.println("2");
   esp_now_register_send_cb(OnDataSent);
   esp_now_register_recv_cb(OnDataRecv);
   
@@ -49,6 +51,7 @@ void setup() {
     Serial1.println("Completed to add GateWay!");
     delay(10);
   }
+  Serial1.println("3");
   timer = timerBegin(0, 80, true);
   //khởi tạo hàm xử lý ngắt ngắt cho Timer
   timerAttachInterrupt(timer, &onTimer, true);
@@ -59,6 +62,7 @@ void setup() {
 }
 
 void loop(){
-SoilStateMachine();
-AirStateMachine();
+// SoilStateMachine();
+// AirStateMachine();
+  Serial1.println("TLH XiDo");
 }
