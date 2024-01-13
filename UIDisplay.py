@@ -62,6 +62,7 @@ def get_all_values():
 root = tk.Tk()
 # Set the icon using PhotoImage
 icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
+icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
 # Bind the F11 key to toggle full-screen
@@ -179,6 +180,8 @@ def create_button():
     giatri = selected_value.get()
     selected_value2 = tk.StringVar(value="NULL")
 
+    child = list()
+
     ################################################ Water Station ################################################
 
     if giatri == "Water Station":
@@ -224,14 +227,14 @@ def create_button():
         WaterLabelEC = tk.Label(canvas2, text=WaterLabelECValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="blue")
         WaterLabelEC.place(relx=0.73, rely=0.65, relwidth=0.5, relheight=0.1)
 
-        for widget in canvas4.winfo_children():
-            widget.destroy()
+        # for widget in canvas4.winfo_children():
+        #     widget.destroy()
 
-        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
+        # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
-        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
+        # combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        # combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Soil Station ########################################################################
 
@@ -292,14 +295,14 @@ def create_button():
         SoilLabelK = tk.Label(canvas2, text=SoilLabelKValue, bg="white", anchor="w", font=("Arial", 25, "bold"), fg="red")
         SoilLabelK.place(relx=0.74, rely=0.81, relwidth=0.5, relheight=0.1)
 
-        for widget in canvas4.winfo_children():
-            widget.destroy()
+        # for widget in canvas4.winfo_children():
+        #     widget.destroy()
 
-        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
+        # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
-        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
+        # combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        # combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Air Station ########################################################################
 
@@ -313,7 +316,7 @@ def create_button():
         global AirLabelPM10
         global AirLabelPressure 
 
-        child = ["Temperature", "Humidity", "Noise", "PM2.5", "PM10", "Atmospheric pressure", "Lux"]
+        child = ["Temperature", "Humidity", "Noise", "PM2.5", "PM10", "ATMOSPHERE", "Lux"]
 
         stringLabel2 = tk.Label(canvas2, text="Air Station", bg="white", anchor="center", font=("Arial", 25, "bold"), fg="green")
         stringLabel2.place(relx=0.29, rely=0.05, relwidth=0.5, relheight=0.1)
@@ -361,14 +364,14 @@ def create_button():
         AirLabelLux.place(relx=0.55, rely=0.81, relwidth=0.5, relheight=0.1)
 
 
-        for widget in canvas4.winfo_children():
-            widget.destroy()
+        # for widget in canvas4.winfo_children():
+        #     widget.destroy()
 
-        labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
-        labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
+        # labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+        # labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
 
-        combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
-        combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
+        # combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+        # combobox.place(relx=0.38, rely=0.049, relwidth=0.4, relheight=0.11)
 
     ################################################ Draft ########################################################################
 
@@ -379,6 +382,12 @@ def create_button():
         radiobutton2canvas2.place(relx=0.1, rely=0.3, relwidth=0.2, relheight=0.1)
         radiobutton3canvas2 = tk.Radiobutton(canvas2, text="G", variable=selected_value2, value="G", background="white", activebackground="white")
         radiobutton3canvas2.place(relx=0.1, rely=0.4, relwidth=0.2, relheight=0.1)
+
+    labelText = tk.Label(canvas4, text="History of ", bg="white", anchor="w",  font=("Arial", 25, "bold"))
+    labelText.place(relx=0.05, rely=0.02, relwidth=0.35, relheight=0.17)
+
+    combobox = ttk.Combobox(canvas4, values=child, font = ("Arial", 20))
+    combobox.place(relx=0.38, rely=0.049, relwidth=0.45, relheight=0.11)
 
     combobox.bind("<<ComboboxSelected>>", drawChart)
 
@@ -627,8 +636,6 @@ def drawChart(event):
         selected_value_Combobox = "TEMP"
     if (selected_value_Combobox == "Humidity"):
         selected_value_Combobox = "HUMID"
-    if (selected_value_Combobox.upper() == "ATMOSPHERIC PRESSURE"):
-        selected_value_Combobox = "ATMOSPHERE"
 
     current_nodeId = giatri.replace(" ", "") + "/" + selected_value_Combobox.upper()
 
