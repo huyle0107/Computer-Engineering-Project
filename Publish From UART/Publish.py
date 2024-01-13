@@ -62,7 +62,7 @@ def mqtt_connected(client, userdata, flags, rc):
     client.subscribe(MQTT_TOPIC_AIR_ATMOSPHERE)
 
 def mqtt_subscribed(client, userdata, mid, granted_qos):
-    print("Subscribed to Topic!!!")
+    print(f"\nSubscribed to Topic!!!\n")
 
 def mqtt_recv_message(client, userdata, message):
     print(f"\nReceived ---> Topic: {message.topic} - Value: {message.payload.decode('utf-8')}\n")
@@ -79,6 +79,7 @@ mqttClient.on_message = mqtt_recv_message
 mqttClient.loop_start()
 
 while True:
+
     try:
         current_time = time.strftime("%H:%M:%S")
 
@@ -150,7 +151,7 @@ while True:
             if (data['SensorID'] == "ATMOSPHERE"):
                 mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
     except Exception as e:
-        print("Can't get data from the server !!!!\n")
+        print("Can't get data from the sensors !!!!\n")
         time.sleep(1)
 
     # current_time = time.strftime("%H:%M:%S")
