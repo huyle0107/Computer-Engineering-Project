@@ -206,7 +206,7 @@ def create_button():
         WaterLabel.place(relx=0.08, rely=0.2, relwidth=0.43, relheight=0.17)
 
         WaterLabel = tk.Label(canvas2, text="Salinity", bg="white", anchor="w", font=("Arial", 20), fg="blue")
-        WaterLabel.place(relx=0.695, rely=0.2, relwidth=0.23, relheight=0.17)
+        WaterLabel.place(relx=0.7, rely=0.2, relwidth=0.23, relheight=0.17)
 
         WaterLabel = tk.Label(canvas2, text="ORP(ppm)", bg="white", anchor="w", font=("Arial", 20), fg="blue")
         WaterLabel.place(relx=0.08, rely=0.5, relwidth=0.3, relheight=0.17)
