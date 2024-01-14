@@ -632,7 +632,7 @@ def drawChart(event):
 
     if (current_nodeId != ""):
 
-        value = requests.get("http://44.211.64.46:4000/api/v1/supabase/sensors")
+        value = requests.get("http://18.205.244.197:4000/api/v1/supabase/sensors")
 
         ValueAll = value.json()["data"]
 
