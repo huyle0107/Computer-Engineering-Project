@@ -7,7 +7,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 from mqtt import *
 from collections import defaultdict
-
+import os
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 ################################################# Open port ##########################################################
@@ -30,6 +30,9 @@ def toggle_fullscreen(event = None):
     else:
         root.geometry("1024x600")  
 
+########################################## Set for bigger combobox when dropped down ####################################################
+def on_combobox_click(event):
+    combobox.event_generate('<Down>')
 
 ########################################################### bounded the canvas ##########################################################
 
@@ -62,7 +65,7 @@ def get_all_values():
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-# icon = PhotoImage(file="E:\Documents\Thesis Proposal\Source code\icon_app.png")
+# icon = PhotoImage(file = "E:\Documents\Thesis Proposal\Source code\icon_app.png")
 icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
@@ -386,6 +389,9 @@ def create_button():
         radiobutton3canvas2.place(relx=0.1, rely=0.4, relwidth=0.2, relheight=0.1)
 
     combobox.bind("<<ComboboxSelected>>", drawChart)
+    # Increase font size for the dropdown list
+    combobox.bind('<Button-1>', on_combobox_click)
+    combobox.option_add('*TCombobox*Listbox.font', ("Arial", 20))
 
 ######################################## Create a Treeview widget ##################################################
 
