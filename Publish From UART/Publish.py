@@ -77,8 +77,6 @@ mqttClient.on_subscribe = mqtt_subscribed
 mqttClient.on_message = mqtt_recv_message
 
 mqttClient.loop_start()
-print("\nThere is no connecting to MQTT sever !!!!\n")
-
 
 while True:
 
