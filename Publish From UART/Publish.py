@@ -67,97 +67,90 @@ def mqtt_subscribed(client, userdata, mid, granted_qos):
 def mqtt_recv_message(client, userdata, message):
     print(f"\nReceived ---> Topic: {message.topic} - Value: {message.payload.decode('utf-8')}\n")
 
-try:
-    mqttClient = mqtt.Client()
-    mqttClient.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
-    mqttClient.connect(MQTT_SERVER, int(MQTT_PORT), 60)
+mqttClient = mqtt.Client()
+mqttClient.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+mqttClient.connect(MQTT_SERVER, int(MQTT_PORT), 60)
 
-    #Register mqtt events
-    mqttClient.on_connect = mqtt_connected
-    mqttClient.on_subscribe = mqtt_subscribed
-    mqttClient.on_message = mqtt_recv_message
+#Register mqtt events
+mqttClient.on_connect = mqtt_connected
+mqttClient.on_subscribe = mqtt_subscribed
+mqttClient.on_message = mqtt_recv_message
 
-    mqttClient.loop_start()
-except Exception:
-    print("\nThere is no connecting to MQTT sever !!!!\n")
+mqttClient.loop_start()
+print("\nThere is no connecting to MQTT sever !!!!\n")
 
 
 while True:
 
-    try:
-        current_time = time.strftime("%H:%M:%S")
+    current_time = time.strftime("%H:%M:%S")
 
-        line = ser.readline().decode('utf-8')
+    line = ser.readline().decode('utf-8')
 
-        print(line)
+    print(line)
 
-        AnalyzeData(line, data)
+    AnalyzeData(line, data)
 
-        print(f"\nPublish data to server ---> {data['NodeID']} - {data['SensorID']} - {data['value']}")
+    print(f"\nPublish data to server ---> {data['NodeID']} - {data['SensorID']} - {data['value']}")
 
-        if (data['NodeID'] == "WaterStation"):
-            if (data['SensorID'] == "EC"):
-                mqttClient.publish("WaterStation/EC", data['value'], retain=True)
-                
-            if (data['SensorID'] == "SALINITY"):
-                mqttClient.publish("WaterStation/SALINITY", data['value'], retain=True)
+    if (data['NodeID'] == "WaterStation"):
+        if (data['SensorID'] == "EC"):
+            mqttClient.publish("WaterStation/EC", data['value'], retain=True)
+            
+        if (data['SensorID'] == "SALINITY"):
+            mqttClient.publish("WaterStation/SALINITY", data['value'], retain=True)
 
-            if (data['SensorID'] == "PH"):
-                mqttClient.publish("WaterStation/PH", data['value'], retain=True)
+        if (data['SensorID'] == "PH"):
+            mqttClient.publish("WaterStation/PH", data['value'], retain=True)
 
-            if (data['SensorID'] == "ORP"):
-                mqttClient.publish("WaterStation/ORP", data['value'], retain=True)
+        if (data['SensorID'] == "ORP"):
+            mqttClient.publish("WaterStation/ORP", data['value'], retain=True)
 
-            if (data['SensorID'] == "TEMP"):
-                mqttClient.publish("WaterStation/TEMP", data['value'], retain=True)
-                
-        if (data['NodeID'] == "SoilStation"):
-            if (data['SensorID'] == "TEMP"):
-                mqttClient.publish("SoilStation/TEMP", data['value'], retain=True)
+        if (data['SensorID'] == "TEMP"):
+            mqttClient.publish("WaterStation/TEMP", data['value'], retain=True)
+            
+    if (data['NodeID'] == "SoilStation"):
+        if (data['SensorID'] == "TEMP"):
+            mqttClient.publish("SoilStation/TEMP", data['value'], retain=True)
 
-            if (data['SensorID'] == "HUMID"):
-                mqttClient.publish("SoilStation/HUMID", data['value'], retain=True)
+        if (data['SensorID'] == "HUMID"):
+            mqttClient.publish("SoilStation/HUMID", data['value'], retain=True)
 
-            if (data['SensorID'] == "EC"):
-                mqttClient.publish("SoilStation/EC", data['value'], retain=True)
+        if (data['SensorID'] == "EC"):
+            mqttClient.publish("SoilStation/EC", data['value'], retain=True)
 
-            if (data['SensorID'] == "PH"):
-                mqttClient.publish("SoilStation/PH", data['value'], retain=True)
+        if (data['SensorID'] == "PH"):
+            mqttClient.publish("SoilStation/PH", data['value'], retain=True)
 
-            if (data['SensorID'] == "N"):
-                mqttClient.publish("SoilStation/N", data['value'], retain=True)
+        if (data['SensorID'] == "N"):
+            mqttClient.publish("SoilStation/N", data['value'], retain=True)
 
-            if (data['SensorID'] == "P"):
-                mqttClient.publish("SoilStation/P", data['value'], retain=True)
+        if (data['SensorID'] == "P"):
+            mqttClient.publish("SoilStation/P", data['value'], retain=True)
 
-            if (data['SensorID'] == "K"):
-                mqttClient.publish("SoilStation/K", data['value'], retain=True)
+        if (data['SensorID'] == "K"):
+            mqttClient.publish("SoilStation/K", data['value'], retain=True)
 
-        if (data['NodeID'] == "AirStation"):
-            if (data['SensorID'] == "TEMP"):
-                mqttClient.publish("AirStation/TEMP", data['value'], retain=True)
+    if (data['NodeID'] == "AirStation"):
+        if (data['SensorID'] == "TEMP"):
+            mqttClient.publish("AirStation/TEMP", data['value'], retain=True)
 
-            if (data['SensorID'] == "HUMID"):
-                mqttClient.publish("AirStation/HUMID", data['value'], retain=True)
+        if (data['SensorID'] == "HUMID"):
+            mqttClient.publish("AirStation/HUMID", data['value'], retain=True)
 
-            if (data['SensorID'] == "LUX"):
-                mqttClient.publish("AirStation/LUX", data['value'], retain=True)
+        if (data['SensorID'] == "LUX"):
+            mqttClient.publish("AirStation/LUX", data['value'], retain=True)
 
-            if (data['SensorID'] == "NOISE"):
-                mqttClient.publish("AirStation/NOISE", data['value'], retain=True)
+        if (data['SensorID'] == "NOISE"):
+            mqttClient.publish("AirStation/NOISE", data['value'], retain=True)
 
-            if (data['SensorID'] == "PM2.5"):
-                mqttClient.publish("AirStation/PM2.5", data['value'], retain=True)
+        if (data['SensorID'] == "PM2.5"):
+            mqttClient.publish("AirStation/PM2.5", data['value'], retain=True)
 
-            if (data['SensorID'] == "PM10"):
-                mqttClient.publish("AirStation/PM10", data['value'], retain=True)
+        if (data['SensorID'] == "PM10"):
+            mqttClient.publish("AirStation/PM10", data['value'], retain=True)
 
-            if (data['SensorID'] == "ATMOSPHERE"):
-                mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
-    
-    except Exception as e:
-        print("Can't publish to the Server !!!!\n")
-        time.sleep(1)
+        if (data['SensorID'] == "ATMOSPHERE"):
+            mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
 
     # current_time = time.strftime("%H:%M:%S")
 

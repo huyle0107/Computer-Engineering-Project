@@ -168,10 +168,7 @@ temp_combobox = ""
 
 thread = None
 
-try:
-    mqttObject = MQTTHelper()
-except Exception as e:
-    print("\nNo connected to the server!!!!\n")
+mqttObject = MQTTHelper()
 
 ################################################## Create for each station ########################################################
 def create_button():
@@ -574,12 +571,9 @@ def mqtt_callback(msg):
             AirLabelPressure.config(text = AirLabelPressureValue)
 
     except Exception as e:
-         print("Can't get data from the server!!!!\n")
+        print(f"Can't get data from the server!!!! - {e}\n")
 
-try:
-    threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
-except Exception as e:
-    print("\nCan not start threading MQTT!!!!!!\n")
+threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
 
 tree.place(relx=0.02, rely=0.19, relwidth=0.96, relheight=0.78)
 
