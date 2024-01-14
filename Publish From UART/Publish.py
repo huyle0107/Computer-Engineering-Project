@@ -32,7 +32,7 @@ MQTT_TOPIC_AIR_PM10 = "AirStation/PM10"
 MQTT_TOPIC_AIR_ATMOSPHERE = "AirStation/ATMOSPHERE"
 
 try:
-    ser = serial.Serial(port = 'COM11', baudrate = 115200)
+    ser = serial.Serial(port = '/dev/ttyUSB1', baudrate = 115200)
 except Exception:
     print("\nThere is no PORT connecting !!!!\n")
 
