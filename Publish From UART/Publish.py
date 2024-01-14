@@ -4,7 +4,7 @@ import serial
 import time
 from ReadUart import AnalyzeData
 
-MQTT_SERVER = "44.211.64.46"
+MQTT_SERVER = "18.205.244.197"
 MQTT_PORT = 1883
 MQTT_USERNAME = "ce_capstone"
 MQTT_PASSWORD = "ce_capstone_2023"
@@ -67,16 +67,20 @@ def mqtt_subscribed(client, userdata, mid, granted_qos):
 def mqtt_recv_message(client, userdata, message):
     print(f"\nReceived ---> Topic: {message.topic} - Value: {message.payload.decode('utf-8')}\n")
 
-mqttClient = mqtt.Client()
-mqttClient.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
-mqttClient.connect(MQTT_SERVER, int(MQTT_PORT), 60)
+try:
+    mqttClient = mqtt.Client()
+    mqttClient.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+    mqttClient.connect(MQTT_SERVER, int(MQTT_PORT), 60)
 
-#Register mqtt events
-mqttClient.on_connect = mqtt_connected
-mqttClient.on_subscribe = mqtt_subscribed
-mqttClient.on_message = mqtt_recv_message
+    #Register mqtt events
+    mqttClient.on_connect = mqtt_connected
+    mqttClient.on_subscribe = mqtt_subscribed
+    mqttClient.on_message = mqtt_recv_message
 
-mqttClient.loop_start()
+    mqttClient.loop_start()
+except Exception:
+    print("\nThere is no connecting to MQTT sever !!!!\n")
+
 
 while True:
 
@@ -150,8 +154,9 @@ while True:
 
             if (data['SensorID'] == "ATMOSPHERE"):
                 mqttClient.publish("AirStation/ATMOSPHERE", data['value'], retain=True)
+    
     except Exception as e:
-        print("Can't get data from the sensors !!!!\n")
+        print("Can't publish to the Server !!!!\n")
         time.sleep(1)
 
     # current_time = time.strftime("%H:%M:%S")

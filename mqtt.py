@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 
 class MQTTHelper:
 
-    MQTT_SERVER = "44.211.64.46"
+    MQTT_SERVER = "18.205.244.197"
     MQTT_PORT = 1883
     MQTT_USERNAME = "ce_capstone"
     MQTT_PASSWORD = "ce_capstone_2023"
