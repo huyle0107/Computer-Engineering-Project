@@ -33,6 +33,7 @@ MQTT_TOPIC_AIR_ATMOSPHERE = "AirStation/ATMOSPHERE"
 
 try:
     ser = serial.Serial(port = '/dev/ttyUSB1', baudrate = 115200)
+    print(f"First line: {ser}")
 except Exception:
     print("\nThere is no PORT connecting !!!!\n")
 
