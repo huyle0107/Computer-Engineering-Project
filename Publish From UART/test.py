@@ -73,8 +73,7 @@ except Exception:
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-icon = PhotoImage(file = "E:\Documents\Thesis Proposal\Source code\icon_app.png")
-# icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
+icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
 # Bind the F11 key to toggle full-screen
