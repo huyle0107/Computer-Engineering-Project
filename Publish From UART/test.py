@@ -16,11 +16,7 @@ from ReadUart import AnalyzeData
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
 
-try:
-    ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
-    print(f"First line: {ser}")
-except Exception:
-    print("\nThere is no PORT connecting !!!!\n")
+ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
 
 global combobox
 global giatri
