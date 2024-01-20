@@ -13,7 +13,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 ################################################# Open port ##########################################################
 try:
     ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
-    print(f"First line: {ser}")
+    print("PORT OPENNING!!!!")
 except Exception:
     print("\nThere is no PORT connecting !!!!\n")
 ########################################## Suit for 7 inch screen ####################################################
@@ -70,8 +70,8 @@ def get_all_values():
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
-root.tk.call('wm', 'iconphoto', root._w, icon)
+# icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
+# root.tk.call('wm', 'iconphoto', root._w, icon)
 
 # Bind the F11 key to toggle full-screen
 root.bind("<F11>", toggle_fullscreen)
