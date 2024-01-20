@@ -167,8 +167,10 @@ AirLabelPressureValue = "101.32"
 temp_combobox = ""
 
 thread = None
-
-mqttObject = MQTTHelper()
+try:
+    mqttObject = MQTTHelper()
+except Exception as e:
+    print(f"Can't get data from the MQTT!!!! - {e}\n")
 
 ################################################## Create for each station ########################################################
 def create_button():
@@ -573,8 +575,11 @@ def mqtt_callback(msg):
     except Exception as e:
         print(f"Can't get data from the server!!!! - {e}\n")
 
-threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
-
+try:
+    threading.Thread(target=mqttObject.setRecvCallBack(mqtt_callback)).start()
+except Exception as e:
+    print(f"Can't get data from the MQTT!!!! - {e}\n")
+    
 tree.place(relx=0.02, rely=0.19, relwidth=0.96, relheight=0.78)
 
 ############################# Create Radio buttons ###################################
@@ -644,9 +649,11 @@ def drawChart(event):
 
     if (current_nodeId != ""):
 
-        value = requests.get("http://18.205.244.197:4000/api/v1/supabase/sensors")
+        # value = requests.get("http://18.205.244.197:4000/api/v1/supabase/sensors")
 
-        ValueAll = value.json()["data"]
+        # ValueAll = value.json()["data"]
+
+        ValueAll = []
 
         for s in ValueAll:
             station_id = s["name"]
@@ -714,8 +721,11 @@ def drawChart(event):
         # Calculate the average for each hour
         hourly_average = {hour: sum(values) / len(values) for hour, values in hourly_values.items()}
 
-        x_axis = list()
-        y_axis = list()
+        # x_axis = list()
+        # y_axis = list()
+
+        x_axis = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
+        y_axis = ["30", "100", "40", "120", "40", "90", "20", "50", "100", "110", "40"]
 
         # Print the result
         for hour, average in hourly_average.items():

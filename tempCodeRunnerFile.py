@@ -1,2 +1,1 @@
-    # for widget in canvas2.winfo_children():
-    #     widget.destroy()
+icon = PhotoImage(file = "E:\Documents\Thesis Proposal\Source code\icon_app.png")
