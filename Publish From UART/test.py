@@ -64,7 +64,7 @@ def get_all_values():
 
 
 try:
-    ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
+    ser = serial.Serial(port = '/dev/ttyUSB1', baudrate = 115200)
     print(f"First line: {ser}")
 except Exception:
     print("\nThere is no PORT connecting !!!!\n")
@@ -448,10 +448,9 @@ def update_data():
 
     try:
         line = ser.readline().decode('utf-8')
-
         print(line)
-
         AnalyzeData(line, data)
+
     except Exception as e:
         print(f"Can't get data from UART!!!! - {e}\n")
 
