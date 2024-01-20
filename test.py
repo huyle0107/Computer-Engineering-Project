@@ -447,135 +447,134 @@ def update_data():
     global AirLabelPM10Value
     global AirLabelPressureValue
 
-    line = ser.readline().decode('utf-8')
+    try:
+        line = ser.readline().decode('utf-8')
 
-    print(line)
+        print(line)
 
-    AnalyzeData(line, data)
+        AnalyzeData(line, data)
+    except Exception as e:
+        print(f"Can't get data from UART!!!! - {e}\n")
 
     datachange = {"NodeID": "SoilStation"}
 
-    try:
-        current_time = time.strftime("%H:%M:%S")
+    current_time = time.strftime("%H:%M:%S")
 
-        datachange['NodeID'] = data["NodeID"]
+    datachange['NodeID'] = data["NodeID"]
 
-        print(f"Received data and Analyzed ---> {data['NodeID']} - {data['SensorID']} - {data['value']}\n")
+    print(f"Received data and Analyzed ---> {data['NodeID']} - {data['SensorID']} - {data['value']}\n")
 
-        ################################################ Water Station ########################################################################
+    ################################################ Water Station ########################################################################
 
-        if (data['NodeID'] == "WaterStation"):
-            if (data['SensorID'] == "EC"):
-                tree.insert("", "0", values=(current_time, "WaterStation/EC", data['value']),tags=('fg', 'bg'))
-                WaterLabelECValue = data['value']
-                
-            if (data['SensorID'] == "SALINITY"):
-                tree.insert("", "0", values=(current_time, "WaterStation/SALINITY", data['value']),tags=('fg', 'bg'))
-                WaterLabelSalValue = data['value']
+    if (data['NodeID'] == "WaterStation"):
+        if (data['SensorID'] == "EC"):
+            tree.insert("", "0", values=(current_time, "WaterStation/EC", data['value']),tags=('fg', 'bg'))
+            WaterLabelECValue = data['value']
+            
+        if (data['SensorID'] == "SALINITY"):
+            tree.insert("", "0", values=(current_time, "WaterStation/SALINITY", data['value']),tags=('fg', 'bg'))
+            WaterLabelSalValue = data['value']
 
-            if (data['SensorID'] == "PH"):
-                tree.insert("", "0", values=(current_time, "WaterStation/PH", data['value']),tags=('fg', 'bg'))
-                WaterLabelPHValue = data['value']
+        if (data['SensorID'] == "PH"):
+            tree.insert("", "0", values=(current_time, "WaterStation/PH", data['value']),tags=('fg', 'bg'))
+            WaterLabelPHValue = data['value']
 
-            if (data['SensorID'] == "ORP"):
-                tree.insert("", "0", values=(current_time, "WaterStation/ORP", data['value']),tags=('fg', 'bg'))
-                WaterLabelORPValue = data['value']
+        if (data['SensorID'] == "ORP"):
+            tree.insert("", "0", values=(current_time, "WaterStation/ORP", data['value']),tags=('fg', 'bg'))
+            WaterLabelORPValue = data['value']
 
-            if (data['SensorID'] == "TEMP"):
-                tree.insert("", "0", values=(current_time, "WaterStation/TEMP", data['value']),tags=('fg', 'bg'))
-                WaterLabelTempValue = data['value']
+        if (data['SensorID'] == "TEMP"):
+            tree.insert("", "0", values=(current_time, "WaterStation/TEMP", data['value']),tags=('fg', 'bg'))
+            WaterLabelTempValue = data['value']
 
-        ################################################ Soil Station ################################################
-                
-        if (data['NodeID'] == "SoilStation"):
-            if (data['SensorID'] == "TEMP"):
-                tree.insert("", "0", values=(current_time, "SoilStation/TEMP", data['value']),tags=('fg', 'bg'))
-                SoilLabelTempValue = data['value']
+    ################################################ Soil Station ################################################
+            
+    if (data['NodeID'] == "SoilStation"):
+        if (data['SensorID'] == "TEMP"):
+            tree.insert("", "0", values=(current_time, "SoilStation/TEMP", data['value']),tags=('fg', 'bg'))
+            SoilLabelTempValue = data['value']
 
-            if (data['SensorID'] == "HUMID"):
-                tree.insert("", "0", values=(current_time, "SoilStation/HUMID", data['value']),tags=('fg', 'bg'))
-                SoilLabelHumidValue = data['value']
+        if (data['SensorID'] == "HUMID"):
+            tree.insert("", "0", values=(current_time, "SoilStation/HUMID", data['value']),tags=('fg', 'bg'))
+            SoilLabelHumidValue = data['value']
 
-            if (data['SensorID'] == "EC"):
-                tree.insert("", "0", values=(current_time, "SoilStation/EC", data['value']),tags=('fg', 'bg'))
-                SoilLabelECValue = data['value']
+        if (data['SensorID'] == "EC"):
+            tree.insert("", "0", values=(current_time, "SoilStation/EC", data['value']),tags=('fg', 'bg'))
+            SoilLabelECValue = data['value']
 
-            if (data['SensorID'] == "PH"):
-                tree.insert("", "0", values=(current_time, "SoilStation/PH", data['value']),tags=('fg', 'bg'))
-                SoilLabelPHValue = data['value']
+        if (data['SensorID'] == "PH"):
+            tree.insert("", "0", values=(current_time, "SoilStation/PH", data['value']),tags=('fg', 'bg'))
+            SoilLabelPHValue = data['value']
 
-            if (data['SensorID'] == "N"):
-                tree.insert("", "0", values=(current_time, "SoilStation/N", data['value']),tags=('fg', 'bg'))
-                SoilLabelNValue = data['value']
+        if (data['SensorID'] == "N"):
+            tree.insert("", "0", values=(current_time, "SoilStation/N", data['value']),tags=('fg', 'bg'))
+            SoilLabelNValue = data['value']
 
-            if (data['SensorID'] == "P"):
-                tree.insert("", "0", values=(current_time, "SoilStation/P", data['value']),tags=('fg', 'bg'))
-                SoilLabelPValue = data['value']
+        if (data['SensorID'] == "P"):
+            tree.insert("", "0", values=(current_time, "SoilStation/P", data['value']),tags=('fg', 'bg'))
+            SoilLabelPValue = data['value']
 
-            if (data['SensorID'] == "K"):
-                tree.insert("", "0", values=(current_time, "SoilStation/K", data['value']),tags=('fg', 'bg'))
-                SoilLabelKValue = data['value']
+        if (data['SensorID'] == "K"):
+            tree.insert("", "0", values=(current_time, "SoilStation/K", data['value']),tags=('fg', 'bg'))
+            SoilLabelKValue = data['value']
 
-        ################################################ Air Station ########################################################################
+    ################################################ Air Station ########################################################################
 
-        if (data['NodeID'] == "AirStation"):
-            if (data['SensorID'] == "TEMP"):
-                tree.insert("", "0", values=(current_time, "AirStation/TEMP", data['value']),tags=('fg', 'bg'))
-                AirLabelTempValue = data['value']
+    if (data['NodeID'] == "AirStation"):
+        if (data['SensorID'] == "TEMP"):
+            tree.insert("", "0", values=(current_time, "AirStation/TEMP", data['value']),tags=('fg', 'bg'))
+            AirLabelTempValue = data['value']
 
-            if (data['SensorID'] == "HUMID"):
-                tree.insert("", "0", values=(current_time, "AirStation/HUMID", data['value']),tags=('fg', 'bg'))
-                AirLabelHumidValue = data['value']
+        if (data['SensorID'] == "HUMID"):
+            tree.insert("", "0", values=(current_time, "AirStation/HUMID", data['value']),tags=('fg', 'bg'))
+            AirLabelHumidValue = data['value']
 
-            if (data['SensorID'] == "LUX"):
-                tree.insert("", "0", values=(current_time, "AirStation/LUX", data['value']),tags=('fg', 'bg'))
-                AirLabelLuxValue = data['value']
+        if (data['SensorID'] == "LUX"):
+            tree.insert("", "0", values=(current_time, "AirStation/LUX", data['value']),tags=('fg', 'bg'))
+            AirLabelLuxValue = data['value']
 
-            if (data['SensorID'] == "NOISE"):
-                tree.insert("", "0", values=(current_time, "AirStation/NOISE", data['value']),tags=('fg', 'bg'))
-                AirLabelNoiseValue = data['value']
+        if (data['SensorID'] == "NOISE"):
+            tree.insert("", "0", values=(current_time, "AirStation/NOISE", data['value']),tags=('fg', 'bg'))
+            AirLabelNoiseValue = data['value']
 
-            if (data['SensorID'] == "PM2.5"):
-                tree.insert("", "0", values=(current_time, "AirStation/PM2.5", data['value']),tags=('fg', 'bg'))
-                AirLabelPM2Value = data['value']
+        if (data['SensorID'] == "PM2.5"):
+            tree.insert("", "0", values=(current_time, "AirStation/PM2.5", data['value']),tags=('fg', 'bg'))
+            AirLabelPM2Value = data['value']
 
-            if (data['SensorID'] == "PM10"):
-                tree.insert("", "0", values=(current_time, "AirStation/PM10", data['value']),tags=('fg', 'bg'))
-                AirLabelPM10Value = data['value']
+        if (data['SensorID'] == "PM10"):
+            tree.insert("", "0", values=(current_time, "AirStation/PM10", data['value']),tags=('fg', 'bg'))
+            AirLabelPM10Value = data['value']
 
-            if (data['SensorID'] == "ATMOSPHERE"):
-                tree.insert("", "0", values=(current_time, "AirStation/ATMOSPHERE", data['value']),tags=('fg', 'bg'))
-                AirLabelPressureValue = data['value']
+        if (data['SensorID'] == "ATMOSPHERE"):
+            tree.insert("", "0", values=(current_time, "AirStation/ATMOSPHERE", data['value']),tags=('fg', 'bg'))
+            AirLabelPressureValue = data['value']
 
-        ################################################ Store Value ########################################################################        
-    
-        if datachange["NodeID"] == "WaterStation":
-            WaterLabelEC.config(text = WaterLabelECValue)
-            WaterLabelSal.config(text = WaterLabelSalValue)
-            WaterLabelPH.config(text = WaterLabelPHValue)
-            WaterLabelORP.config(text = WaterLabelORPValue)
-            WaterLabelTemp.config(text = WaterLabelTempValue)
+    ################################################ Store Value ########################################################################        
 
-        elif datachange["NodeID"] == "SoilStation":
-            SoilLabelTemp.config(text = SoilLabelTempValue)
-            SoilLabelHumid.config(text = SoilLabelHumidValue)
-            SoilLabelEC.config(text = SoilLabelECValue)
-            SoilLabelPH.config(text = SoilLabelPHValue)
-            SoilLabelN.config(text = SoilLabelNValue)
-            SoilLabelP.config(text = SoilLabelPValue)
-            SoilLabelK.config(text = SoilLabelKValue)
+    if datachange["NodeID"] == "WaterStation":
+        WaterLabelEC.config(text = WaterLabelECValue)
+        WaterLabelSal.config(text = WaterLabelSalValue)
+        WaterLabelPH.config(text = WaterLabelPHValue)
+        WaterLabelORP.config(text = WaterLabelORPValue)
+        WaterLabelTemp.config(text = WaterLabelTempValue)
 
-        elif datachange["NodeID"] == "AirStation":
-            AirLabelTemp.config(text = AirLabelTempValue)
-            AirLabelHumid.config(text = AirLabelHumidValue)
-            AirLabelLux.config(text = AirLabelLuxValue)
-            AirLabelNoise.config(text = AirLabelNoiseValue)
-            AirLabelPM2.config(text = AirLabelPM2Value)
-            AirLabelPM10.config(text = AirLabelPM10Value)
-            AirLabelPressure.config(text = AirLabelPressureValue)
+    elif datachange["NodeID"] == "SoilStation":
+        SoilLabelTemp.config(text = SoilLabelTempValue)
+        SoilLabelHumid.config(text = SoilLabelHumidValue)
+        SoilLabelEC.config(text = SoilLabelECValue)
+        SoilLabelPH.config(text = SoilLabelPHValue)
+        SoilLabelN.config(text = SoilLabelNValue)
+        SoilLabelP.config(text = SoilLabelPValue)
+        SoilLabelK.config(text = SoilLabelKValue)
 
-    except Exception as e:
-        print(f"Can't get data from the server!!!! - {e}\n")
+    elif datachange["NodeID"] == "AirStation":
+        AirLabelTemp.config(text = AirLabelTempValue)
+        AirLabelHumid.config(text = AirLabelHumidValue)
+        AirLabelLux.config(text = AirLabelLuxValue)
+        AirLabelNoise.config(text = AirLabelNoiseValue)
+        AirLabelPM2.config(text = AirLabelPM2Value)
+        AirLabelPM10.config(text = AirLabelPM10Value)
+        AirLabelPressure.config(text = AirLabelPressureValue)
 
 threading.Thread(target=update_data()).start()
 
