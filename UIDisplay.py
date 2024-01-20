@@ -65,8 +65,8 @@ def get_all_values():
 
 root = tk.Tk()
 # Set the icon using PhotoImage
-# icon = PhotoImage(file = "E:\Documents\Thesis Proposal\Source code\icon_app.png")
-icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
+icon = PhotoImage(file = "E:\Documents\Thesis Proposal\Source code\icon_app.png")
+# icon = PhotoImage(file="~/Desktop/MDT-128/Computer-Engineering-Project/icon_app.png")
 root.tk.call('wm', 'iconphoto', root._w, icon)
 
 # Bind the F11 key to toggle full-screen
@@ -78,7 +78,7 @@ root.bind("<Escape>", toggle_fullscreen)
 # Initial window size (optional)
 root.attributes('-fullscreen', True)
 root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
-
+root.wm_attributes("-topmost", 1)
 # Set the title of the window
 root.title("Aggriculture Application")
 root.config(background="blue")
