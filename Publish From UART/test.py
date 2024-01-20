@@ -16,11 +16,14 @@ from ReadUart import AnalyzeData
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
 
+try:
+    ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
+    print(f"First line: {ser}")
+except Exception:
+    print("\nThere is no PORT connecting !!!!\n")
+
 global combobox
 global giatri
-global thread_running
-
-thread_running = True
 
 def toggle_fullscreen(event = None):
     state = not root.attributes('-fullscreen')
@@ -61,13 +64,6 @@ def get_all_values():
         topic = tree.item(item, "values")[1]
         value = tree.item(item, "values")[2]
         values.append((topic, value))
-
-
-try:
-    ser = serial.Serial(port = '/dev/ttyUSB1', baudrate = 115200)
-    print(f"First line: {ser}")
-except Exception:
-    print("\nThere is no PORT connecting !!!!\n")
 
 ###################################################### Set for each frame of canvas ######################################################
 
