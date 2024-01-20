@@ -11,12 +11,16 @@ import time
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ReadUart import AnalyzeData
 
+
 ################################################# Open port ##########################################################
+try:
+    ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
+    print(f"First line: {ser}")
+except Exception:
+    print("\nThere is no PORT connecting !!!!\n")
 ########################################## Suit for 7 inch screen ####################################################
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
-
-ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
 
 global combobox
 global giatri
@@ -643,7 +647,6 @@ def drawChart(event):
             ValueAll = value.json()["data"]
         except Exception as e:
             print(f"Can't draw to the chart - {e}!!!!\n")
-            time.sleep(1)
 
         for s in ValueAll:
             station_id = s["name"]
