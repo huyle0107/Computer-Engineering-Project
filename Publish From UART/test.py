@@ -417,6 +417,47 @@ tree.heading("cot3", text="Values", anchor="center")
 tree.tag_configure('bg', background='#4A6984')
 tree.tag_configure('fg', foreground="white")
 
+############################# Create Radio buttons ###################################
+
+selected_value = tk.StringVar(value="A")
+def remove_border(event):
+    # Remove focus from the Radiobutton to prevent border around the text
+    event.widget.master.focus_set()
+
+dataset = ["Water Station", "Soil Station", "Air Station"]
+
+# Set the desired font size for the Radiobutton text
+radiobutton_font = ("Arial", 20)
+
+# Set the desired padding for the Radiobutton
+padding_width = 40
+padding_height = 40
+
+# Create a transparent image as padding
+transparent_image = tk.PhotoImage(width=padding_width, height=padding_height)
+
+style = ttk.Style()
+style.configure("TRadiobutton", font=radiobutton_font, padding=0, borderwidth=0, background="white")
+style.map("TRadiobutton", background=[('active', 'white')])
+
+# Increase the size of the circular part
+style.configure("TRadiobutton", indicatorsize=15)
+
+y_offset = 0.01  # Initial value for rely
+
+for i in dataset:
+    radiobutton1 = ttk.Radiobutton(
+        canvas1, text=i, variable=selected_value, value=i, 
+        command=create_button, style="TRadiobutton",
+        compound="left", image=transparent_image
+    )
+    radiobutton1.place(relx=0.05, rely=y_offset + 0.2, relwidth=0.7, relheight=0.1)
+
+    # Bind the event to remove focus and prevent the border
+    radiobutton1.bind("<FocusIn>", remove_border)
+
+    y_offset += 0.2
+
 ################################################ Update Data #############################################
 
 def update_data():
@@ -576,47 +617,6 @@ def update_data():
 threading.Thread(target=update_data()).start()
     
 tree.place(relx=0.02, rely=0.19, relwidth=0.96, relheight=0.78)
-
-############################# Create Radio buttons ###################################
-
-selected_value = tk.StringVar(value="A")
-def remove_border(event):
-    # Remove focus from the Radiobutton to prevent border around the text
-    event.widget.master.focus_set()
-
-dataset = ["Water Station", "Soil Station", "Air Station"]
-
-# Set the desired font size for the Radiobutton text
-radiobutton_font = ("Arial", 20)
-
-# Set the desired padding for the Radiobutton
-padding_width = 40
-padding_height = 40
-
-# Create a transparent image as padding
-transparent_image = tk.PhotoImage(width=padding_width, height=padding_height)
-
-style = ttk.Style()
-style.configure("TRadiobutton", font=radiobutton_font, padding=0, borderwidth=0, background="white")
-style.map("TRadiobutton", background=[('active', 'white')])
-
-# Increase the size of the circular part
-style.configure("TRadiobutton", indicatorsize=15)
-
-y_offset = 0.01  # Initial value for rely
-
-for i in dataset:
-    radiobutton1 = ttk.Radiobutton(
-        canvas1, text=i, variable=selected_value, value=i, 
-        command=create_button, style="TRadiobutton",
-        compound="left", image=transparent_image
-    )
-    radiobutton1.place(relx=0.05, rely=y_offset + 0.2, relwidth=0.7, relheight=0.1)
-
-    # Bind the event to remove focus and prevent the border
-    radiobutton1.bind("<FocusIn>", remove_border)
-
-    y_offset += 0.2
 
 ########################### Draw a line chart #############################
 def drawChart(event):
