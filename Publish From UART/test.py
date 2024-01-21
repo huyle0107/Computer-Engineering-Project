@@ -11,11 +11,6 @@ from ReadUart import AnalyzeData
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 ################################################# Open port ##########################################################
-try:
-    ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
-    print("PORT OPENNING!!!!")
-except Exception:
-    print("\nThere is no PORT connecting !!!!\n")
 ########################################## Suit for 7 inch screen ####################################################
 # Tủ nông nghiệp: 1024 - 600
 data = {'NodeID': 0, 'SensorID': 0, 'value': 0}
@@ -83,6 +78,7 @@ root.bind("<Escape>", toggle_fullscreen)
 root.attributes('-fullscreen', True)
 root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
 root.wm_attributes("-topmost", 1)
+
 # Set the title of the window
 root.title("Aggriculture Application")
 root.config(background="blue")
@@ -169,7 +165,6 @@ AirLabelPM10Value = "20.51"
 AirLabelPressureValue = "101.32"
 
 temp_combobox = ""
-
 thread = None
 
 ################################################## Create for each station ########################################################
@@ -485,6 +480,8 @@ def update_data():
     global AirLabelPressureValue
 
     try:
+        ser = serial.Serial(port = '/dev/ttyUSB0', baudrate = 115200)
+
         line = ser.readline().decode('utf-8')
 
         print(line)
@@ -612,7 +609,7 @@ def update_data():
             AirLabelPressure.config(text = AirLabelPressureValue)
 
     except Exception as e:
-        print(f"Can't get data from the server!!!! - {e}\n")
+        print("\nThere is no PORT connecting !!!!\n")
 
 threading.Thread(target=update_data()).start()
     
